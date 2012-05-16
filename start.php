@@ -1,5 +1,10 @@
 <?php
 // --------------------------------------------------------------
+// Load helpers
+// --------------------------------------------------------------
+require __DIR__.DS.'helpers'.EXT;
+
+// --------------------------------------------------------------
 // Map the Base Controller
 // --------------------------------------------------------------
 Autoloader::map(array(
@@ -10,38 +15,30 @@ Autoloader::map(array(
 // Load controllers
 // --------------------------------------------------------------
 Route::controller(array(
-	'layla_client::account',
-	'layla_client::media',
-	'layla_client::page',
-	'layla_client::auth',
+	'layla_admin::account',
+	'layla_admin::media',
+	'layla_admin::page',
+	'layla_admin::auth',
 ));
 
 // --------------------------------------------------------------
 // Load namespaces
 // --------------------------------------------------------------
 Autoloader::namespaces(array(
-	'Layla\\Client' => __DIR__.DS.'libraries'
+	'Layla\\Admin' => __DIR__.DS.'libraries'
 ));
 
 // --------------------------------------------------------------
 // Load bundles
 // --------------------------------------------------------------
-$bundles = require __DIR__ . DS . 'bundles'.EXT;
-foreach ($bundles as $bundle => $config)
-{
-	Bundle::register($bundle, $config);
-	if($config['auto'])
-	{
-		Bundle::start($bundle);
-	}
-}
+Bundle::start('layla_thirdparty_bootsparks');
 
 // --------------------------------------------------------------
 // Default Composer
 // --------------------------------------------------------------
-View::composer('layla_client::layouts.default', function($view)
+View::composer('layla_admin::layouts.default', function($view)
 {
-	$view->shares('url', Config::get('layla::install.url').'/');
+	$view->shares('url', Config::get('layla.url').'/');
 
 	Asset::container('header')->add('jquery', 'js/jquery.min.js')
 		->add('bootstrap', 'css/bootstrap.min.css')
@@ -54,6 +51,6 @@ View::composer('layla_client::layouts.default', function($view)
 // --------------------------------------------------------------
 // Set Aliases
 // --------------------------------------------------------------
-Autoloader::alias('Layla\\Client\\API', 'API');
-Autoloader::alias('Layla\\Client\\Notification', 'Notification');
-Autoloader::alias('Layla\\Client\\HTML', 'HTML');
+Autoloader::alias('Layla\\Admin\\API', 'API');
+Autoloader::alias('Layla\\Admin\\Notification', 'Notification');
+Autoloader::alias('Layla\\Admin\\HTML', 'HTML');

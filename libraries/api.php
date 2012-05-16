@@ -1,4 +1,4 @@
-<?php namespace Layla\Client;
+<?php namespace Layla\Admin;
 
 use Laravel\Config;
 
@@ -29,7 +29,7 @@ class API {
 	 */
 	public static function driver($driver = null)
 	{
-		if (is_null($driver)) $driver = Config::get('layla::install.api.driver');
+		if (is_null($driver)) $driver = Config::get('layla.api.driver');
 
 		if ( ! isset(static::$drivers[$driver]))
 		{

@@ -1,6 +1,6 @@
-<?php namespace Layla\Client\API\Drivers;
+<?php namespace Layla\Admin\API\Drivers;
 
-use Layla\Client\APIResponse;
+use Layla\Admin\APIResponse;
 
 use Laravel\Config;
 use Exception;
@@ -9,7 +9,7 @@ class JSON extends Driver {
 
 	public static function call($method, $arguments, $input = array(), $segments = array())
 	{
-		$url = Config::get('layla::install.api.url') . '/' . implode('/', $arguments) . (count($segments) > 0 ? '?' . http_build_query($segments) : '');
+		$url = Config::get('layla.api.url') . '/' . implode('/', $arguments) . (count($segments) > 0 ? '?' . http_build_query($segments) : '');
 		$method = strtoupper($method);
 
 		$headers = array(

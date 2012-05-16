@@ -1,6 +1,6 @@
 <?php
 
-class Layla_Client_Auth_Controller extends Layla_Base_Controller {
+class Layla_Admin_Auth_Controller extends Layla_Base_Controller {
 
 	/**
 	 * Setting the page title
@@ -11,7 +11,7 @@ class Layla_Client_Auth_Controller extends Layla_Base_Controller {
 
 	public function get_index()
 	{
-		$this->layout->content = View::make('layla_client::profile.index');
+		$this->layout->content = View::make('layla_admin::profile.index');
 	}
 
 }

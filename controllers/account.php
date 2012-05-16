@@ -5,7 +5,7 @@ use Laravel\Messages;
 /**
 * 
 */
-class Layla_Client_Account_Controller extends Layla_Base_Controller
+class Layla_Admin_Account_Controller extends Layla_Base_Controller
 {
 
 	/**
@@ -49,7 +49,7 @@ class Layla_Client_Account_Controller extends Layla_Base_Controller
 		// Paginate the Accounts
 		$accounts = Paginator::make($accounts->results, $accounts->total, $this->per_page);
 
-		$this->layout->content = View::make('layla_client::account.index')->with('accounts', $accounts);
+		$this->layout->content = View::make('layla_admin::account.index')->with('accounts', $accounts);
 	}
 
 	public function get_add()
@@ -64,7 +64,7 @@ class Layla_Client_Account_Controller extends Layla_Base_Controller
 			return $language->name;
 		}, 'id');
 
-		$this->layout->content = View::make('layla_client::account.add')
+		$this->layout->content = View::make('layla_admin::account.add')
 									 ->with('roles', $roles)
 									 ->with('languages', $languages);
 	}
@@ -123,7 +123,7 @@ class Layla_Client_Account_Controller extends Layla_Base_Controller
 			return $language->name;
 		}, 'id');
 
-		$this->layout->content = View::make('layla_client::account.edit')
+		$this->layout->content = View::make('layla_admin::account.edit')
 									 ->with('account', $account)
 									 ->with('roles', $roles)
 									 ->with('active_roles', $active_roles)
@@ -169,7 +169,7 @@ class Layla_Client_Account_Controller extends Layla_Base_Controller
 		// The request body is the Account
 		$account = $response->get();
 
-		$this->layout->content = View::make('layla_client::account.delete')
+		$this->layout->content = View::make('layla_admin::account.delete')
 									 ->with('account', $account);
 	}
 

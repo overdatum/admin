@@ -1,4 +1,4 @@
-<?php namespace Layla\Client;
+<?php namespace Layla\Admin;
 
 use Laravel\Session;
 

@@ -38,7 +38,7 @@ class Layla_Base_Controller extends Controller
 	{
 		parent::__construct();
 
-		$this->url = Config::get('layla::install.url').'/';
+		$this->url = Config::get('layla.url').'/';
 	}
 
 	/**
@@ -48,7 +48,7 @@ class Layla_Base_Controller extends Controller
 	 */
 	public function layout()
 	{
-		return View::make('layla_client::layouts.default')
+		return View::make('layla_admin::layouts.default')
 				   ->with('meta_title', $this->meta_title);
 	}
 
