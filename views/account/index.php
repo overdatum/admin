@@ -1,12 +1,12 @@
 <div id="main">
 	<div class="page-header">
 		<div class="pull-right">
-			<?= Form::open($url.'account', 'GET') ?>
-				<?= Form::input('text', 'q', Input::get('q')) ?> &nbsp;
+			<?php echo Form::open($url.'account', 'GET') ?>
+				<?php echo Form::input('text', 'q', Input::get('q')) ?> &nbsp;
 				<button type="submit" class="btn btn-small btn-primary"><i class="icon-white icon-search">&nbsp;</i></button>
-			<?= Form::close() ?>
+			<?php echo Form::close() ?>
 		</div>
-		<h1><?= __('layla_admin::account.index.title') ?></h1>
+		<h1><?php echo __('layla_admin::account.index.title') ?></h1>
 	</div>
 
 	<?php Notification::show() ?>
@@ -15,9 +15,9 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th><?= HTML::sort_link($url.'account', 'name', __('layla_admin::account.index.table.name')) ?></th>
-					<th><?= HTML::sort_link($url.'account', 'email', __('layla_admin::account.index.table.email')) ?></th>
-					<th><?= __('layla_admin::account.index.table.roles') ?></th>
+					<th><?php echo HTML::sort_link($url.'account', 'name', __('layla_admin::account.index.table.name')) ?></th>
+					<th><?php echo HTML::sort_link($url.'account', 'email', __('layla_admin::account.index.table.email')) ?></th>
+					<th><?php echo __('layla_admin::account.index.table.roles') ?></th>
 					<th>&nbsp;</th>
 				</tr>
 			</thead>
@@ -25,10 +25,10 @@
 				<?php foreach($accounts->results as $account): ?>
 				<tr>
 					<td>
-						<h2><?= $account->name ?></h2>
+						<h2><?php echo $account->name ?></h2>
 					</td>
 					<td>
-						<?= $account->email ?>
+						<?php echo $account->email ?>
 					</td>
 					<td>
 						<?php
@@ -42,22 +42,22 @@
 						?>
 					</td>
 					<td style="text-align:right">
-						<?= HTML::link($url.'account/edit/'.$account->id, '<i class="icon-pencil"></i>', array('class' => 'btn btn-small')) ?>
-						<?= HTML::link($url.'account/delete/'.$account->id, '<i class="icon-trash icon-white"></i>', array('class' => 'btn btn-danger')) ?>
+						<?php echo HTML::link($url.'account/edit/'.$account->id, '<i class="icon-pencil"></i>', array('class' => 'btn btn-small')) ?>
+						<?php echo HTML::link($url.'account/delete/'.$account->id, '<i class="icon-trash icon-white"></i>', array('class' => 'btn btn-danger')) ?>
 					</td>
 				</tr>
 			<?php endforeach ?>
 			</tbody>
 		</table>
 		<div class="pull-left">
-			<?= $accounts->links() ?>
+			<?php echo $accounts->links() ?>
 		</div>
 	<?php else: ?>
 		<div class="well">
-			<?= __('layla_admin::account.index.table.no_results') ?>
+			<?php echo __('layla_admin::account.index.table.no_results') ?>
 		</div>
 	<?php endif ?>
 	<div class="pull-right">
-		<?= HTML::link($url.'account/add', '<i class="icon-white icon-plus-sign"></i> '.__('layla_admin::account.index.buttons.add'), array('class' => 'btn btn-large btn-primary')) ?>
+		<?php echo HTML::link($url.'account/add', '<i class="icon-white icon-plus-sign"></i> '.__('layla_admin::account.index.buttons.add'), array('class' => 'btn btn-large btn-primary')) ?>
 	</div>
 </div>
