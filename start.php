@@ -41,7 +41,7 @@ View::composer('layla_admin::layouts.default', function($view)
 	$view->shares('url', Config::get('layla.url').'/');
 
 	Asset::container('header')->add('jquery', 'js/jquery.min.js')
-		->add('bootstrap', 'css/bootstrap.min.css')
+		->add('bootstrap', 'css/bootstrap.css')
 		->add('bootstrap-responsive', 'css/bootstrap-responsive.css')
 		->add('main', 'css/main.css');
 	
