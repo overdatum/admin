@@ -1,6 +1,6 @@
 <?php
 
-use Laravel\Messages;
+use Components\Layla\API;
 
 /**
 * 
@@ -44,10 +44,10 @@ class Layla_Admin_Account_Controller extends Layla_Base_Controller
 		}
 
 		// Get the Accounts
-		$accounts = API::get(array('account', 'all'), $options)->get();
+		$accounts = API::get(array('account', 'all'), $options);
 
 		// Paginate the Accounts
-		$accounts = Paginator::make($accounts->results, $accounts->total, $this->per_page);
+		$accounts = Paginator::make($accounts->get('results'), $accounts->get('total'), $this->per_page);
 
 		$this->layout->content = View::make('layla_admin::account.index')->with('accounts', $accounts);
 	}
@@ -55,12 +55,14 @@ class Layla_Admin_Account_Controller extends Layla_Base_Controller
 	public function get_add()
 	{
 		// Get Roles and put it in a nice array for the dropdown
-		$roles = array('' => '') + model_array_pluck(API::get(array('role', 'all'))->get()->results, function($role) { 
+		$roles = array('' => '') + model_array_pluck(API::get(array('role', 'all'))->get('results'), function($role)
+		{ 
 			return $role->lang->name;
 		}, 'id');
 
 		// Get Languages and put it in a nice array for the dropdown
-		$languages = model_array_pluck(API::get(array('language', 'all'))->get()->results, function($language) {
+		$languages = model_array_pluck(API::get(array('language', 'all'))->get('results'), function($language)
+		{
 			return $language->name;
 		}, 'id');
 
@@ -73,7 +75,7 @@ class Layla_Admin_Account_Controller extends Layla_Base_Controller
 	{
 		$response = API::post(array('account'), Input::all());
 		// Error were found our data! Redirect to form with errors and old input
-		if($response->error())
+		if( ! $response->success)
 		{
 			// Errors were found on our data! Redirect to form with errors and old input
 			if($response->code == 400)
@@ -98,7 +100,7 @@ class Layla_Admin_Account_Controller extends Layla_Base_Controller
 		$response = API::get(array('account', $id));
 
 		// Handle response codes other than 200 OK
-		if($response->error())
+		if( ! $response->success)
 		{
 			return Event::first($response->code);
 		}
@@ -107,7 +109,8 @@ class Layla_Admin_Account_Controller extends Layla_Base_Controller
 		$account = $response->get();
 
 		// Get Roles and put it in a nice array for the dropdown
-		$roles = array('' => '') + model_array_pluck(API::get(array('role', 'all'))->get()->results, function($role) {
+		$roles = array('' => '') + model_array_pluck(API::get(array('role', 'all'))->get('results'), function($role)
+		{
 			return $role->lang->name;
 		}, 'id');
 
@@ -119,7 +122,8 @@ class Layla_Admin_Account_Controller extends Layla_Base_Controller
 		}
 
 		// Get Languages and put it in a nice array for the dropdown
-		$languages = model_array_pluck(API::get(array('language', 'all'))->get()->results, function($language) {
+		$languages = model_array_pluck(API::get(array('language', 'all'))->get('results'), function($language)
+		{
 			return $language->name;
 		}, 'id');
 
@@ -136,7 +140,7 @@ class Layla_Admin_Account_Controller extends Layla_Base_Controller
 		$response = API::put(array('account', $id), Input::all());
 
 		// Handle response codes other than 200 OK
-		if($response->error())
+		if( ! $response->success)
 		{
 			// Errors were found on our data! Redirect to form with errors and old input
 			if($response->code == 400)
@@ -161,7 +165,7 @@ class Layla_Admin_Account_Controller extends Layla_Base_Controller
 		$response = API::get(array('account', $id));
 
 		// Handle response codes other than 200 OK
-		if($response->error())
+		if( ! $response->success)
 		{
 			return Event::first($response->code);
 		}
@@ -179,7 +183,7 @@ class Layla_Admin_Account_Controller extends Layla_Base_Controller
 		$response = API::delete(array('account', $id));
 
 		// Handle response codes other than 200 OK
-		if($response->error())
+		if( ! $response->success)
 		{
 			return Event::first($response->code);
 		}

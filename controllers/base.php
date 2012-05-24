@@ -1,5 +1,7 @@
 <?php
 
+use Components\Layla\API;
+
 /**
 * 
 */
@@ -37,8 +39,10 @@ class Layla_Base_Controller extends Controller
 	public function __construct()
 	{
 		parent::__construct();
+		
+		API::$component = 'admin';
 
-		$this->url = Config::get('layla.url').'/';
+		$this->url = Config::get('layla.admin.url_prefix').'/';
 	}
 
 	/**

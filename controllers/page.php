@@ -1,5 +1,7 @@
 <?php
 
+use Components\Layla\API;
+
 /**
 * 
 */
@@ -39,10 +41,10 @@ class Layla_Admin_Page_Controller extends Layla_Base_Controller
 		}
 
 		// Get the Pages
-		$pages = API::get(array('page', 'all'), $options)->get();
-
+		$pages = API::get(array('page', 'all'), $options);
+		
 		// Paginate the Pages
-		$pages = Paginator::make($pages->results, $pages->total, $this->per_page);
+		$pages = Paginator::make($pages->get('results'), $pages->get('total'), $this->per_page);
 
 		$this->layout->content = View::make('layla_admin::page.index')->with('pages', $pages);
 	}
@@ -50,12 +52,14 @@ class Layla_Admin_Page_Controller extends Layla_Base_Controller
 	public function get_add()
 	{
 		// Get Languages
-		$languages = model_array_pluck(API::get(array('language', 'all'))->get()->results, function($language) {
+		$languages = model_array_pluck(API::get(array('language', 'all'))->get('results'), function($language)
+		{
 			return $language->name;
 		}, 'id');
 
 		// Get Layouts and put it in a nice array for the dropdown
-		$layouts = model_array_pluck(API::get(array('layout', 'all'))->get()->results, function($layout) {
+		$layouts = model_array_pluck(API::get(array('layout', 'all'))->get('results'), function($layout)
+		{
 			return $layout->name;
 		}, 'id');
 
@@ -68,7 +72,7 @@ class Layla_Admin_Page_Controller extends Layla_Base_Controller
 	{
 		$response = API::post(array('page'), Input::all());
 		// Error were found our data! Redirect to form with errors and old input
-		if($response->error())
+		if( ! $response->success)
 		{
 			// Errors were found on our data! Redirect to form with errors and old input
 			if($response->code == 400)
@@ -93,7 +97,7 @@ class Layla_Admin_Page_Controller extends Layla_Base_Controller
 		$response = API::get(array('page', $id));
 
 		// Handle response codes other than 200 OK
-		if($response->error())
+		if( ! $response->success)
 		{
 			return Event::first($response->code);
 		}
@@ -102,12 +106,14 @@ class Layla_Admin_Page_Controller extends Layla_Base_Controller
 		$page = $response->get();
 
 		// Get Languages
-		$languages = model_array_pluck(API::get(array('language', 'all'))->get()->results, function($language) {
+		$languages = model_array_pluck(API::get(array('language', 'all'))->get('results'), function($language)
+		{
 			return $language->name;
 		}, 'id');
 
 		// Get Layouts and put it in a nice array for the dropdown
-		$layouts = model_array_pluck(API::get(array('layout', 'all'))->get()->results, function($layout) {
+		$layouts = model_array_pluck(API::get(array('layout', 'all'))->get('results'), function($layout)
+		{
 			return $layout->name;
 		}, 'id');
 
@@ -123,7 +129,7 @@ class Layla_Admin_Page_Controller extends Layla_Base_Controller
 		$response = API::put(array('page', $id), Input::all());
 
 		// Handle response codes other than 200 OK
-		if($response->error())
+		if( ! $response->success)
 		{
 			// Errors were found on our data! Redirect to form with errors and old input
 			if($response->code == 400)
@@ -148,7 +154,7 @@ class Layla_Admin_Page_Controller extends Layla_Base_Controller
 		$response = API::get(array('page', $id));
 
 		// Handle response codes other than 200 OK
-		if($response->error())
+		if( ! $response->success)
 		{
 			return Event::first($response->code);
 		}
@@ -166,7 +172,7 @@ class Layla_Admin_Page_Controller extends Layla_Base_Controller
 		$response = API::delete(array('page', $id));
 
 		// Handle response codes other than 200 OK
-		if($response->error())
+		if( ! $response->success)
 		{
 			return Event::first($response->code);
 		}

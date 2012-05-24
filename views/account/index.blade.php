@@ -9,12 +9,10 @@
 			{{ Form::close() }}
 		</div>
 		
-		
 		<h1>{{ __('layla_admin::account.index.title') }}</h1>
 	</div>
 
 	{{ Notification::show() }}
-	
 	
 	@if(count($accounts->results) > 0)
 		<table class="table table-striped">
