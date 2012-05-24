@@ -38,7 +38,7 @@ Bundle::start('layla_thirdparty_bootsparks');
 // --------------------------------------------------------------
 View::composer('layla_admin::layouts.default', function($view)
 {
-	$view->shares('url', Config::get('layla.url').'/');
+	$view->shares('url', Config::get('layla.admin.url_prefix').'/');
 
 	Asset::container('header')->add('jquery', 'js/jquery.min.js')
 		->add('bootstrap', 'css/bootstrap.css')
@@ -47,10 +47,3 @@ View::composer('layla_admin::layouts.default', function($view)
 	
 	Asset::container('footer')->add('bootstrap', 'js/bootstrap.js');
 });
-
-// --------------------------------------------------------------
-// Set Aliases
-// --------------------------------------------------------------
-Autoloader::alias('Layla\\Admin\\API', 'API');
-Autoloader::alias('Layla\\Admin\\Notification', 'Notification');
-Autoloader::alias('Layla\\Admin\\HTML', 'HTML');
