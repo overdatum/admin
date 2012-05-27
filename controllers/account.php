@@ -49,7 +49,18 @@ class Layla_Admin_Account_Controller extends Layla_Base_Controller
 		// Paginate the Accounts
 		$accounts = Paginator::make($accounts->get('results'), $accounts->get('total'), $this->per_page);
 
-		$this->layout->content = View::make('layla_admin::account.index')->with('accounts', $accounts);
+		/*$form = array(
+			'title' => 'fefw',
+			''
+		);
+
+		$page = array(
+			'title' => 'Accounts',
+			'table' => 
+		);
+		$form = FormLib::load($form);*/
+
+		$this->layout->content = View::make('layla_admin::account.index')->with('accounts', $accounts);//->with('form', $form);
 	}
 
 	public function get_add()
