@@ -116,10 +116,7 @@ class Admin_Account_Controller extends Admin_Base_Controller
 				$page->title(__('admin::account.add.title'));
 			});
 
-			$page->form(function($page) use ($id)
-			{
-				$page->add(EditForm::render($id));
-			}, 'PUT', $url_prefix.'account/edit/'.$id);
+			$page->form(EditForm::render($id), 'PUT', $url_prefix.'account/edit/'.$id);
 		});
 	}
 
