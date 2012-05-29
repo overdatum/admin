@@ -43,15 +43,15 @@ class EditForm extends Form {
 				return $language->name;
 			}, 'id');
 
-			$form->text('name',  __('layla_admin::account.edit.form.name'));
-			$form->text('email', __('layla_admin::account.edit.form.email'));
-			$form->password('password', __('layla_admin::account.edit.form.password'));
-			$form->multiple('roles', __('layla_admin::account.edit.form.roles'), $roles, $active_roles);
-			$form->dropdown('language_id', __('layla_admin::account.edit.form.language'), $languages);
+			$form->text('name',  __('admin::account.edit.form.name'));
+			$form->text('email', __('admin::account.edit.form.email'));
+			$form->password('password', __('admin::account.edit.form.password'));
+			$form->multiple('roles', __('admin::account.edit.form.roles'), $roles, $active_roles);
+			$form->dropdown('language_id', __('admin::account.edit.form.language'), $languages);
 
 			$form->nest('actions', function($form)
 			{
-				$form->submit(__('layla_admin::account.edit.buttons.edit'), 'primary');
+				$form->submit(__('admin::account.edit.buttons.edit'), 'primary');
 			});
 		});
 	}

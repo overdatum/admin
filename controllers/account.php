@@ -8,7 +8,7 @@ use Admin\Forms\Account\EditForm;
 /**
 * 
 */
-class Layla_Admin_Account_Controller extends Layla_Base_Controller
+class Admin_Account_Controller extends Admin_Base_Controller
 {
 
 	public $edit_form;
@@ -54,7 +54,7 @@ class Layla_Admin_Account_Controller extends Layla_Base_Controller
 		// Paginate the Accounts
 		$accounts = Paginator::make($accounts->get('results'), $accounts->get('total'), $this->per_page);
 
-		$this->layout->content = View::make('layla_admin::account.index')->with('accounts', $accounts);
+		$this->layout->content = View::make('admin::account.index')->with('accounts', $accounts);
 	}
 
 	public function get_add()
@@ -71,7 +71,7 @@ class Layla_Admin_Account_Controller extends Layla_Base_Controller
 			return $language->name;
 		}, 'id');
 
-		$this->layout->content = View::make('layla_admin::account.add')
+		$this->layout->content = View::make('admin::account.add')
 									 ->with('roles', $roles)
 									 ->with('languages', $languages);
 	}
@@ -112,7 +112,7 @@ class Layla_Admin_Account_Controller extends Layla_Base_Controller
 					$page->search();
 				});
 
-				$page->title(__('layla_admin::account.add.title'));
+				$page->title(__('admin::account.add.title'));
 			});
 
 			$page->nest('form', function($page) use ($id)
@@ -161,7 +161,7 @@ class Layla_Admin_Account_Controller extends Layla_Base_Controller
 		// The request body is the Account
 		$account = $response->get();
 
-		$this->layout->content = View::make('layla_admin::account.delete')
+		$this->layout->content = View::make('admin::account.delete')
 									 ->with('account', $account);
 	}
 

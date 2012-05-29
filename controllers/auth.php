@@ -2,13 +2,13 @@
 
 use Laravel\Messages;
 
-class Layla_Admin_Auth_Controller extends Layla_Base_Controller {
+class Admin_Auth_Controller extends Admin_Base_Controller {
 
 	public $meta_title = 'Authentication';
 
 	public function get_login()
 	{
-		$this->layout->content = View::make('layla_admin::auth.login');
+		$this->layout->content = View::make('admin::auth.login');
 	}
 
 	public function put_login()

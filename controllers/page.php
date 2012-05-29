@@ -5,7 +5,7 @@ use Layla\API;
 /**
 * 
 */
-class Layla_Admin_Page_Controller extends Layla_Base_Controller
+class Admin_Page_Controller extends Admin_Base_Controller
 {
 	/**
 	 * __construct
@@ -46,7 +46,7 @@ class Layla_Admin_Page_Controller extends Layla_Base_Controller
 		// Paginate the Pages
 		$pages = Paginator::make($pages->get('results'), $pages->get('total'), $this->per_page);
 
-		$this->layout->content = View::make('layla_admin::page.index')->with('pages', $pages);
+		$this->layout->content = View::make('admin::page.index')->with('pages', $pages);
 	}
 
 	public function get_add()
@@ -63,7 +63,7 @@ class Layla_Admin_Page_Controller extends Layla_Base_Controller
 			return $layout->name;
 		}, 'id');
 
-		$this->layout->content = View::make('layla_admin::page.add')
+		$this->layout->content = View::make('admin::page.add')
 									 ->with('languages', $languages)
 									 ->with('layouts', $layouts);
 	}
@@ -117,7 +117,7 @@ class Layla_Admin_Page_Controller extends Layla_Base_Controller
 			return $layout->name;
 		}, 'id');
 
-		$this->layout->content = View::make('layla_admin::page.edit')
+		$this->layout->content = View::make('admin::page.edit')
 									 ->with('page', $page)
 									 ->with('languages', $languages)
 									 ->with('layouts', $layouts);
@@ -162,7 +162,7 @@ class Layla_Admin_Page_Controller extends Layla_Base_Controller
 		// The request body is the Page
 		$page = $response->get();
 
-		$this->layout->content = View::make('layla_admin::page.delete')
+		$this->layout->content = View::make('admin::page.delete')
 									 ->with('page', $page);
 	}
 

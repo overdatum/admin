@@ -3,7 +3,7 @@
 /**
 * 
 */
-class Layla_Admin_Media_Controller extends Layla_Base_Controller
+class Admin_Media_Controller extends Admin_Base_Controller
 {
 	
 	/**

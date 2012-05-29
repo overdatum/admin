@@ -9,7 +9,7 @@ require __DIR__.DS.'helpers'.EXT;
 // Map the Base Controller
 // --------------------------------------------------------------
 Autoloader::map(array(
-	'Layla_Base_Controller' => __DIR__.DS.'controllers'.DS.'base'.EXT,
+	'Admin_Base_Controller' => __DIR__.DS.'controllers'.DS.'base'.EXT,
 ));
 
 // --------------------------------------------------------------
@@ -23,21 +23,21 @@ Autoloader::namespaces(array(
 // Load controllers
 // --------------------------------------------------------------
 Route::controller(array(
-	'layla_admin::account',
-	'layla_admin::media',
-	'layla_admin::page',
-	'layla_admin::auth',
+	'admin::account',
+	'admin::media',
+	'admin::page',
+	'admin::auth',
 ));
 
 // --------------------------------------------------------------
 // Load bundles
 // --------------------------------------------------------------
-Bundle::start('layla_thirdparty_bootsparks');
+Bundle::start('thirdparty_bootsparks');
 
 // --------------------------------------------------------------
 // Default Composer
 // --------------------------------------------------------------
-View::composer('layla_admin::layouts.default', function($view)
+View::composer('admin::layouts.default', function($view)
 {
 	$view->shares('url', Config::get('layla.admin.url_prefix').'/');
 

@@ -5,7 +5,7 @@ use Layla\API;
 /**
 * 
 */
-class Layla_Base_Controller extends Controller
+class Admin_Base_Controller extends Controller
 {
 
 	public $per_page = 10;
@@ -52,7 +52,7 @@ class Layla_Base_Controller extends Controller
 	 */
 	public function layout()
 	{
-		return View::make('layla_admin::layouts.default')
+		return View::make('admin::layouts.default')
 				   ->with('meta_title', $this->meta_title);
 	}
 

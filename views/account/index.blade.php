@@ -9,7 +9,7 @@
 			{{ Form::close() }}
 		</div>
 		
-		<h1>{{ __('layla_admin::account.index.title') }}</h1>
+		<h1>{{ __('admin::account.index.title') }}</h1>
 	</div>
 
 	{{ Notification::show() }}
@@ -18,9 +18,9 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>{{ HTML::sort_link($url.'account', 'name', __('layla_admin::account.index.table.name')) }}</th>
-					<th>{{ HTML::sort_link($url.'account', 'email', __('layla_admin::account.index.table.email')) }}</th>
-					<th>{{ __('layla_admin::account.index.table.roles') }}</th>
+					<th>{{ HTML::sort_link($url.'account', 'name', __('admin::account.index.table.name')) }}</th>
+					<th>{{ HTML::sort_link($url.'account', 'email', __('admin::account.index.table.email')) }}</th>
+					<th>{{ __('admin::account.index.table.roles') }}</th>
 					<th>&nbsp;</th>
 				</tr>
 			</thead>
@@ -53,11 +53,11 @@
 		</div>
 	@else
 		<div class="well">
-			{{ __('layla_admin::account.index.table.no_results') }}
+			{{ __('admin::account.index.table.no_results') }}
 		</div>
 	@endif
 
 	<div class="pull-right">
-		{{ HTML::link($url.'account/add', '<span class="icon-white icon-plus-sign"></span> '.__('layla_admin::account.index.buttons.add'), array('class' => 'btn btn-large btn-primary')) }}
+		{{ HTML::link($url.'account/add', '<span class="icon-white icon-plus-sign"></span> '.__('admin::account.index.buttons.add'), array('class' => 'btn btn-large btn-primary')) }}
 	</div>
 </div>
