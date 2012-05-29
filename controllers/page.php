@@ -1,6 +1,6 @@
 <?php
 
-use Components\Layla\API;
+use Layla\API;
 
 /**
 * 
