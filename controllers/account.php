@@ -1,13 +1,13 @@
 <?php
 
+use Laravel\Messages;
+
 use Layla\API;
 use Layla\Module;
 use Layla\Module\Form;
 
 use Admin\Forms\Account\EditForm;
-/**
-* 
-*/
+
 class Admin_Account_Controller extends Admin_Base_Controller
 {
 
@@ -103,7 +103,8 @@ class Admin_Account_Controller extends Admin_Base_Controller
 
 	public function get_edit($id = null)
 	{
-		$this->layout->content = Module::render(function($page) use ($id)
+		$url_prefix = $this->url;
+		$this->layout->content = Module::render(function($page) use ($id, $url_prefix)
 		{
 			$page->nest('page_header', function($page)
 			{
@@ -118,7 +119,7 @@ class Admin_Account_Controller extends Admin_Base_Controller
 			$page->nest('form', function($page) use ($id)
 			{
 				$page->add(EditForm::render($id));
-			}, 'GET', 'account/edit/'.$id);
+			}, 'PUT', $url_prefix.'account/edit/'.$id);
 		});
 	}
 
