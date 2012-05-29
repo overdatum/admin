@@ -1,12 +1,17 @@
 <?php
 
-use Components\Layla\API;
+use Layla\API;
+use Layla\Module;
+use Layla\Module\Form;
 
+use Admin\Forms\Account\EditForm;
 /**
 * 
 */
 class Layla_Admin_Account_Controller extends Layla_Base_Controller
 {
+
+	public $edit_form;
 
 	/**
 	 * __construct
@@ -49,18 +54,7 @@ class Layla_Admin_Account_Controller extends Layla_Base_Controller
 		// Paginate the Accounts
 		$accounts = Paginator::make($accounts->get('results'), $accounts->get('total'), $this->per_page);
 
-		/*$form = array(
-			'title' => 'fefw',
-			''
-		);
-
-		$page = array(
-			'title' => 'Accounts',
-			'table' => 
-		);
-		$form = FormLib::load($form);*/
-
-		$this->layout->content = View::make('layla_admin::account.index')->with('accounts', $accounts);//->with('form', $form);
+		$this->layout->content = View::make('layla_admin::account.index')->with('accounts', $accounts);
 	}
 
 	public function get_add()
@@ -99,6 +93,8 @@ class Layla_Admin_Account_Controller extends Layla_Base_Controller
 			return Event::first($response->code);
 		}
 
+		Form::make($this->edit_form)->valid();
+
 		// Add success notification
 		Notification::success('Successfully created account');
 
@@ -107,42 +103,23 @@ class Layla_Admin_Account_Controller extends Layla_Base_Controller
 
 	public function get_edit($id = null)
 	{
-		// Get the Account
-		$response = API::get(array('account', $id));
-
-		// Handle response codes other than 200 OK
-		if( ! $response->success)
+		$this->layout->content = Module::render(function($page) use ($id)
 		{
-			return Event::first($response->code);
-		}
+			$page->nest('page_header', function($page)
+			{
+				$page->nest('float_right', function($page)
+				{
+					$page->search();
+				});
 
-		// The response body is the Account
-		$account = $response->get();
+				$page->title(__('layla_admin::account.add.title'));
+			});
 
-		// Get Roles and put it in a nice array for the dropdown
-		$roles = array('' => '') + model_array_pluck(API::get(array('role', 'all'))->get('results'), function($role)
-		{
-			return $role->lang->name;
-		}, 'id');
-
-		// Get the Roles that belong to a User and put it in a nice array for the dropdown
-		$active_roles = array();
-		if(isset($account->roles))
-		{ 
-			$active_roles = model_array_pluck($account->roles, 'id', '');
-		}
-
-		// Get Languages and put it in a nice array for the dropdown
-		$languages = model_array_pluck(API::get(array('language', 'all'))->get('results'), function($language)
-		{
-			return $language->name;
-		}, 'id');
-
-		$this->layout->content = View::make('layla_admin::account.edit')
-									 ->with('account', $account)
-									 ->with('roles', $roles)
-									 ->with('active_roles', $active_roles)
- 									 ->with('languages', $languages);
+			$page->nest('form', function($page) use ($id)
+			{
+				$page->add(EditForm::render($id));
+			}, 'GET', 'account/edit/'.$id);
+		});
 	}
 
 	public function put_edit($id = null)
