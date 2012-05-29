@@ -49,7 +49,7 @@ class EditForm extends Form {
 			$form->multiple('roles', __('admin::account.edit.form.roles'), $roles, $active_roles);
 			$form->dropdown('language_id', __('admin::account.edit.form.language'), $languages);
 
-			$form->nest('actions', function($form)
+			$form->actions(function($form)
 			{
 				$form->submit(__('admin::account.edit.buttons.edit'), 'primary');
 			});

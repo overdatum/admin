@@ -106,9 +106,9 @@ class Admin_Account_Controller extends Admin_Base_Controller
 		$url_prefix = $this->url;
 		$this->layout->content = Module::render(function($page) use ($id, $url_prefix)
 		{
-			$page->nest('page_header', function($page)
+			$page->page_header(function($page)
 			{
-				$page->nest('float_right', function($page)
+				$page->float_right(function($page)
 				{
 					$page->search();
 				});
@@ -116,7 +116,7 @@ class Admin_Account_Controller extends Admin_Base_Controller
 				$page->title(__('admin::account.add.title'));
 			});
 
-			$page->nest('form', function($page) use ($id)
+			$page->form(function($page) use ($id)
 			{
 				$page->add(EditForm::render($id));
 			}, 'PUT', $url_prefix.'account/edit/'.$id);
