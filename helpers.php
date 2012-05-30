@@ -14,3 +14,8 @@ function model_array_pluck($models, $value, $key = null)
 
 	return $result;
 }
+
+function prefix()
+{
+	return Config::get('layla.admin.url_prefix').'/';
+}

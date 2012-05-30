@@ -93,8 +93,6 @@ class Admin_Account_Controller extends Admin_Base_Controller
 			return Event::first($response->code);
 		}
 
-		Form::make($this->edit_form)->valid();
-
 		// Add success notification
 		Notification::success('Successfully created account');
 
@@ -104,20 +102,7 @@ class Admin_Account_Controller extends Admin_Base_Controller
 	public function get_edit($id = null)
 	{
 		$url_prefix = $this->url;
-		$this->layout->content = Module::render(function($page) use ($id, $url_prefix)
-		{
-			$page->page_header(function($page)
-			{
-				$page->float_right(function($page)
-				{
-					$page->search();
-				});
-
-				$page->title(__('admin::account.add.title'));
-			});
-
-			$page->form(EditForm::render($id), 'PUT', $url_prefix.'account/edit/'.$id);
-		});
+		$this->layout->content = Module::page('account.edit', $id);
 	}
 
 	public function put_edit($id = null)

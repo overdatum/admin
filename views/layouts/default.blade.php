@@ -12,11 +12,7 @@
 <div id="holder"  class="clearfix">
 	<!-- Navigation, Only used for develop atm -->
 	<nav>
-		<ul>
-			<li><a href="#">Home</a></li>
-			<li><a href="{{ URL::to('manage/page') }}">Pages</a></li>
-			<li><a href="{{ URL::to('manage/account') }}">Users</a></li>
-		</ul>
+		{{ Menu::container('main')->render() }}
 	</nav>
 	
 	<!-- Main content -->
