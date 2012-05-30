@@ -66,5 +66,9 @@ Menu::container('main', $url_prefix)
 // --------------------------------------------------------------
 // Registering forms and pages
 // --------------------------------------------------------------
-Module::register('form', 'account.edit', 'admin::account.edit@form');
+Module::register('page', 'account.add', 'admin::account@add');
+Module::register('form', 'account.add', 'admin::account@add');
 Module::register('page', 'account.edit', 'admin::account@edit');
+Module::register('form', 'account.edit', 'admin::account@edit');
+Module::register('page', 'account.delete', 'admin::account@delete');
+Module::register('form', 'account.delete', 'admin::account@delete');

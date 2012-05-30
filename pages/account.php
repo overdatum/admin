@@ -1,8 +1,10 @@
 <?php
 
+use Layla\API;
+
 class Admin_Account_Page {
 
-	public function add($page, $id)
+	public function add($page)
 	{
 		$page->page_header(function($page)
 		{
@@ -14,7 +16,7 @@ class Admin_Account_Page {
 			$page->title(__('admin::account.add.title'));
 		});
 
-		$page->form(Module::load('account.add', $id), 'POST', prefix().'account/add/'.$id);
+		$page->form(Module::form('account.add'), 'POST', prefix().'account/add');
 	}
 
 	public function edit($page, $id)
@@ -34,6 +36,18 @@ class Admin_Account_Page {
 
 	public function delete($page, $id)
 	{
+		// Get the Account
+		$response = API::get(array('account', $id));
+
+		// Handle response codes other than 200 OK
+		if( ! $response->success)
+		{
+			return Event::first($response->code);
+		}
+
+		// The response body is the Account
+		$account = $response->get();
+
 		$page->page_header(function($page)
 		{
 			$page->float_right(function($page)
@@ -42,6 +56,11 @@ class Admin_Account_Page {
 			});
 
 			$page->title(__('admin::account.delete.title'));
+		});
+
+		$page->well(function($page) use ($account)
+		{
+			$page->raw(__('admin::account.delete.message', array('name' => $account->name, 'email' => $account->email)));
 		});
 
 		$page->form(Module::form('account.delete', $id), 'DELETE', prefix().'account/delete/'.$id);		

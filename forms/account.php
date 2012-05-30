@@ -1,18 +1,36 @@
 <?php
 
 use Layla\API;
-use Layla\Module;
-use Layla\Module\Form;
 
-class Admin_Account_Edit_Form extends Form {
+class Admin_Account_Form {
 
-	public static $rules = array(
-		'name' => 'required',
-		'email' => 'required|email',
-		'language_id' => 'required',
-	);
+	public static function add($form)
+	{
+		// Get Roles and put it in a nice array for the dropdown
+		$roles = array('' => '') + model_array_pluck(API::get(array('role', 'all'))->get('results'), function($role)
+		{
+			return $role->lang->name;
+		}, 'id');
 
-	public static function form($form, $id)
+		// Get Languages and put it in a nice array for the dropdown
+		$languages = model_array_pluck(API::get(array('language', 'all'))->get('results'), function($language)
+		{
+			return $language->name;
+		}, 'id');
+
+		$form->text('name',  __('admin::account.add.form.name'), Input::get('name'));
+		$form->text('email', __('admin::account.add.form.email'), Input::get('email'));
+		$form->password('password', __('admin::account.add.form.password'));
+		$form->multiple('roles[]', __('admin::account.add.form.roles'), $roles, Input::get('roles'));
+		$form->dropdown('language_id', __('admin::account.add.form.language'), $languages, Input::get('language_id'));
+
+		$form->actions(function($form)
+		{
+			$form->submit(__('admin::account.add.buttons.add'), 'primary');
+		});
+	}
+
+	public static function edit($form, $id)
 	{
 		// Get the Account
 		$response = API::get(array('account', $id));
@@ -54,6 +72,15 @@ class Admin_Account_Edit_Form extends Form {
 		$form->actions(function($form)
 		{
 			$form->submit(__('admin::account.edit.buttons.edit'), 'primary');
+		});
+	}
+
+	public static function delete($form, $id)
+	{
+		$form->actions(function($form)
+		{
+			$form->submit(__('admin::account.delete.buttons.delete'), 'primary');
+			$form->button(prefix().'account', __('admin::account.delete.buttons.cancel'));
 		});
 	}
 

@@ -59,21 +59,7 @@ class Admin_Account_Controller extends Admin_Base_Controller
 
 	public function get_add()
 	{
-		// Get Roles and put it in a nice array for the dropdown
-		$roles = array('' => '') + model_array_pluck(API::get(array('role', 'all'))->get('results'), function($role)
-		{ 
-			return $role->lang->name;
-		}, 'id');
-
-		// Get Languages and put it in a nice array for the dropdown
-		$languages = model_array_pluck(API::get(array('language', 'all'))->get('results'), function($language)
-		{
-			return $language->name;
-		}, 'id');
-
-		$this->layout->content = View::make('admin::account.add')
-									 ->with('roles', $roles)
-									 ->with('languages', $languages);
+		$this->layout->content = Module::page('account.add');
 	}
 
 	public function post_add()
@@ -101,7 +87,6 @@ class Admin_Account_Controller extends Admin_Base_Controller
 
 	public function get_edit($id = null)
 	{
-		$url_prefix = $this->url;
 		$this->layout->content = Module::page('account.edit', $id);
 	}
 
@@ -132,20 +117,7 @@ class Admin_Account_Controller extends Admin_Base_Controller
 
 	public function get_delete($id = null)
 	{
-		// Get the Account
-		$response = API::get(array('account', $id));
-
-		// Handle response codes other than 200 OK
-		if( ! $response->success)
-		{
-			return Event::first($response->code);
-		}
-
-		// The request body is the Account
-		$account = $response->get();
-
-		$this->layout->content = View::make('admin::account.delete')
-									 ->with('account', $account);
+		$this->layout->content = Module::page('account.delete', $id);
 	}
 
 	public function delete_delete($id = null)
