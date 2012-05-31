@@ -62,10 +62,10 @@ Menu::container('main', $url_prefix)
 	->add('account', 'Accounts')
 	->add('page', 'Pages');
 
-
 // --------------------------------------------------------------
 // Registering forms and pages
 // --------------------------------------------------------------
+Module::register('page', 'account.index', 'admin::account@index');
 Module::register('page', 'account.add', 'admin::account@add');
 Module::register('form', 'account.add', 'admin::account@add');
 Module::register('page', 'account.edit', 'admin::account@edit');

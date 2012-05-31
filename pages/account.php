@@ -4,6 +4,69 @@ use Layla\API;
 
 class Admin_Account_Page {
 
+	public function index($page, $accounts)
+	{
+		$page->page_header(function($page)
+		{
+			$page->float_right(function($page)
+			{
+				$page->search();
+			});
+
+			$page->title(__('admin::account.index.title'));
+		});
+
+		$page->notifications();
+
+		$page->table(function($table) use ($accounts)
+		{
+			$table->header(array(
+				'name' => __('admin::account.index.table.name'),
+				'email' => __('admin::account.index.table.email'),
+				'roles' => __('admin::account.index.table.roles'),
+				'buttons' => ''
+			));
+			$table->sortable(array('name', 'email'));
+			$table->rows($accounts);
+			$table->no_results(function($table)
+			{
+				$table->well(function($table)
+				{
+					$table->raw(__('admin::account.index.table.no_results'));
+				});
+			});
+			$table->display(array(
+				'roles' => function($account)
+				{
+					$roles = '';
+					foreach ($account->roles as $role)
+					{
+						$roles .=
+							'<b>'.
+								$role->lang->name.
+							'</b><br>'.
+							$role->lang->description;
+					}
+
+					return $roles;						
+				},
+				'buttons' => function($account)
+				{
+					return
+						HTML::link(prefix('admin').'account/edit/'.$account->id, '<span class="icon-pencil"></span>', array('class' => 'btn btn-small')).
+						HTML::link(prefix('admin').'account/delete/'.$account->id, '<span class="icon-trash icon-white"></span>', array('class' => 'btn btn-danger'));
+				}
+			));
+		});
+
+		$page->links($accounts);
+
+		$page->float_right(function($page)
+		{
+			$page->button(prefix('admin').'account/add', 'Add account', 'primary');
+		});
+	}
+
 	public function add($page)
 	{
 		$page->page_header(function($page)
@@ -16,7 +79,7 @@ class Admin_Account_Page {
 			$page->title(__('admin::account.add.title'));
 		});
 
-		$page->form(Module::form('account.add'), 'POST', prefix().'account/add');
+		$page->form(Module::form('account.add'), 'POST', prefix('admin').'account/add');
 	}
 
 	public function edit($page, $id)
@@ -31,7 +94,7 @@ class Admin_Account_Page {
 			$page->title(__('admin::account.edit.title'));
 		});
 
-		$page->form(Module::form('account.edit', $id), 'PUT', prefix().'account/edit/'.$id);		
+		$page->form(Module::form('account.edit', $id), 'PUT', prefix('admin').'account/edit/'.$id);		
 	}
 
 	public function delete($page, $id)
@@ -63,7 +126,7 @@ class Admin_Account_Page {
 			$page->raw(__('admin::account.delete.message', array('name' => $account->name, 'email' => $account->email)));
 		});
 
-		$page->form(Module::form('account.delete', $id), 'DELETE', prefix().'account/delete/'.$id);		
+		$page->form(Module::form('account.delete', $id), 'DELETE', prefix('admin').'account/delete/'.$id);		
 	}
 
 }
