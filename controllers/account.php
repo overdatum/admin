@@ -54,7 +54,7 @@ class Admin_Account_Controller extends Admin_Base_Controller
 		// Paginate the Accounts
 		$accounts = Paginator::make($accounts->get('results'), $accounts->get('total'), $this->per_page);
 
-		$this->layout->content = View::make('admin::account.index')->with('accounts', $accounts);
+		$this->layout->content = Module::page('account.index', $accounts);
 	}
 
 	public function get_add()
@@ -65,13 +65,14 @@ class Admin_Account_Controller extends Admin_Base_Controller
 	public function post_add()
 	{
 		$response = API::post(array('account'), Input::all());
+		
 		// Error were found our data! Redirect to form with errors and old input
 		if( ! $response->success)
 		{
 			// Errors were found on our data! Redirect to form with errors and old input
 			if($response->code == 400)
 			{
-				return Redirect::to($this->url.'account/add')
+				return Redirect::to(prefix('admin').'account/add')
 							 ->with('errors', new Messages($response->get()))
 					   ->with_input('except', array('password'));
 			}
@@ -82,7 +83,7 @@ class Admin_Account_Controller extends Admin_Base_Controller
 		// Add success notification
 		Notification::success('Successfully created account');
 
-		return Redirect::to($this->url.'account');
+		return Redirect::to(prefix('admin').'account');
 	}
 
 	public function get_edit($id = null)
@@ -101,7 +102,7 @@ class Admin_Account_Controller extends Admin_Base_Controller
 			// Errors were found on our data! Redirect to form with errors and old input
 			if($response->code == 400)
 			{
-				return Redirect::to($this->url.'account/edit/' . $id)
+				return Redirect::to(prefix('admin').'account/edit/' . $id)
 							 ->with('errors', new Messages($response->get()))
 					   ->with_input('except', array('password'));
 			}
@@ -112,7 +113,7 @@ class Admin_Account_Controller extends Admin_Base_Controller
 		// Add success notification
 		Notification::success('Successfully updated account');
 
-		return Redirect::to($this->url.'account');
+		return Redirect::to(prefix('admin').'account');
 	}
 
 	public function get_delete($id = null)
@@ -134,7 +135,7 @@ class Admin_Account_Controller extends Admin_Base_Controller
 		// Add success notification
 		Notification::success('Successfully deleted account');
 
-		return Redirect::to($this->url.'account');
+		return Redirect::to(prefix('admin').'account');
 	}
 
 }

@@ -77,7 +77,7 @@ class Admin_Page_Controller extends Admin_Base_Controller
 			// Errors were found on our data! Redirect to form with errors and old input
 			if($response->code == 400)
 			{
-				return Redirect::to($this->url.'page/add')
+				return Redirect::to(prefix('admin').'page/add')
 							 ->with('errors', new Messages($response->get()))
 					   ->with_input();
 			}
@@ -88,7 +88,7 @@ class Admin_Page_Controller extends Admin_Base_Controller
 		// Add success notification
 		Notification::success('Successfully created page');
 
-		return Redirect::to($this->url.'page');
+		return Redirect::to(prefix('admin').'page');
 	}
 
 	public function get_edit($id = null)
@@ -134,7 +134,7 @@ class Admin_Page_Controller extends Admin_Base_Controller
 			// Errors were found on our data! Redirect to form with errors and old input
 			if($response->code == 400)
 			{
-				return Redirect::to($this->url.'page/edit/' . $id)
+				return Redirect::to(prefix('admin').'page/edit/' . $id)
 							 ->with('errors', new Messages($response->get()))
 					   ->with_input();
 			}
@@ -145,7 +145,7 @@ class Admin_Page_Controller extends Admin_Base_Controller
 		// Add success notification
 		Notification::success('Successfully updated page');
 
-		return Redirect::to($this->url.'page');
+		return Redirect::to(prefix('admin').'page');
 	}
 
 	public function get_delete($id = null)
@@ -180,7 +180,7 @@ class Admin_Page_Controller extends Admin_Base_Controller
 		// Add success notification
 		Notification::success('Successfully deleted page');
 
-		return Redirect::to($this->url.'page');
+		return Redirect::to(prefix('admin').'page');
 	}
 
 }

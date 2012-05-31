@@ -16,7 +16,7 @@ class Admin_Auth_Controller extends Admin_Base_Controller {
 		$auth = API::post(array('auth', 'login'), Input::all());
 		if($auth->code == 400)
 		{
-			return Redirect::to($this->url.'auth/login')->with('errors', new Messages($auth->get()))->with_input('except', array());
+			return Redirect::to(prefix('admin').'auth/login')->with('errors', new Messages($auth->get()))->with_input('except', array());
 		}
 	}
 
@@ -24,7 +24,7 @@ class Admin_Auth_Controller extends Admin_Base_Controller {
 	{
 		Auth::logout();
 
-		return Redirect::to($this->url.'auth/login');
+		return Redirect::to(prefix('admin').'auth/login');
 	}
 
 }

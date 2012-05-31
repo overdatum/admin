@@ -18,11 +18,11 @@ class Admin_Account_Form {
 			return $language->name;
 		}, 'id');
 
-		$form->text('name',  __('admin::account.add.form.name'), Input::get('name'));
-		$form->text('email', __('admin::account.add.form.email'), Input::get('email'));
+		$form->text('name',  __('admin::account.add.form.name'), Input::old('name'));
+		$form->text('email', __('admin::account.add.form.email'), Input::old('email'));
 		$form->password('password', __('admin::account.add.form.password'));
-		$form->multiple('roles[]', __('admin::account.add.form.roles'), $roles, Input::get('roles'));
-		$form->dropdown('language_id', __('admin::account.add.form.language'), $languages, Input::get('language_id'));
+		$form->multiple('roles[]', __('admin::account.add.form.roles'), $roles, Input::old('roles'));
+		$form->dropdown('language_id', __('admin::account.add.form.language'), $languages, Input::old('language_id'));
 
 		$form->actions(function($form)
 		{
@@ -63,11 +63,11 @@ class Admin_Account_Form {
 			return $language->name;
 		}, 'id');
 
-		$form->text('name',  __('admin::account.edit.form.name'), Input::get('name', $account->name));
-		$form->text('email', __('admin::account.edit.form.email'), Input::get('email', $account->email));
+		$form->text('name',  __('admin::account.edit.form.name'), Input::old('name', $account->name));
+		$form->text('email', __('admin::account.edit.form.email'), Input::old('email', $account->email));
 		$form->password('password', __('admin::account.edit.form.password'));
-		$form->multiple('roles[]', __('admin::account.edit.form.roles'), $roles, Input::get('roles', $active_roles));
-		$form->dropdown('language_id', __('admin::account.edit.form.language'), $languages, Input::get('language_id', $account->language->id));
+		$form->multiple('roles[]', __('admin::account.edit.form.roles'), $roles, Input::old('roles', $active_roles));
+		$form->dropdown('language_id', __('admin::account.edit.form.language'), $languages, Input::old('language_id', $account->language->id));
 
 		$form->actions(function($form)
 		{
@@ -80,7 +80,7 @@ class Admin_Account_Form {
 		$form->actions(function($form)
 		{
 			$form->submit(__('admin::account.delete.buttons.delete'), 'primary');
-			$form->button(prefix().'account', __('admin::account.delete.buttons.cancel'));
+			$form->button(prefix('admin').'account', __('admin::account.delete.buttons.cancel'));
 		});
 	}
 
