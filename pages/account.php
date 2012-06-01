@@ -39,15 +39,18 @@ class Admin_Account_Page {
 				'roles' => function($account)
 				{
 					$roles = '';
-					foreach ($account->roles as $role)
+					if(isset($account->roles))
 					{
-						$roles .=
-							'<b>'.
-								$role->lang->name.
-							'</b><br>'.
-							$role->lang->description;
+						foreach ($account->roles as $role)
+						{
+							$roles .=
+								'<b>'.
+									$role->lang->name.
+								'</b><br>'.
+								$role->lang->description;
+						}
 					}
-
+					
 					return $roles;						
 				},
 				'buttons' => function($account)
