@@ -21,10 +21,10 @@ class Admin_Account_Page {
 		$page->table(function($table) use ($accounts)
 		{
 			$table->header(array(
-				'name' => __('admin::account.index.table.name'),
+				'name' => array('title' => __('admin::account.index.table.name'), 'attributes' => array('class' => 'first big')),
 				'email' => __('admin::account.index.table.email'),
 				'roles' => __('admin::account.index.table.roles'),
-				'buttons' => ''
+				'buttons' => array('attributes' => array('class' => 'buttons last'))
 			));
 			$table->sortable(array('name', 'email'));
 			$table->rows($accounts);
@@ -57,7 +57,7 @@ class Admin_Account_Page {
 				{
 					return
 						HTML::link(prefix('admin').'account/edit/'.$account->id, '<span class="icon-pencil"></span>', array('class' => 'btn btn-small')).
-						HTML::link(prefix('admin').'account/delete/'.$account->id, '<span class="icon-trash icon-white"></span>', array('class' => 'btn btn-danger'));
+						HTML::link(prefix('admin').'account/delete/'.$account->id, '<span class="icon-trash icon-white"></span>', array('class' => 'btn btn-primary'));
 				}
 			));
 		});
