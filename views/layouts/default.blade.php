@@ -8,17 +8,12 @@
 </head>
 <body>
 
-<!-- Main holder -->
-<div id="holder"  class="clearfix">
-	<!-- Navigation, Only used for develop atm -->
-	<nav>
-		{{ Menu::container('main')->render() }}
-	</nav>
-	
-	<!-- Main content -->
-	<section id="content">
-		{{  $content }}
-	</section>
+<div id="menu">
+	{{ Menu::handler('main')->prefix(substr(prefix('admin'), 0, -1))->render() }}
+</div>
+
+<div id="content">
+	{{  $content }}
 </div>
 
 {{  Asset::container('footer')->scripts(); }}
