@@ -5,7 +5,7 @@ use Layla\API;
 /**
 * 
 */
-class Admin_Page_Controller extends Admin_Base_Controller
+class Admin_Pages_Controller extends Admin_Base_Controller
 {
 	/**
 	 * __construct
@@ -46,7 +46,7 @@ class Admin_Page_Controller extends Admin_Base_Controller
 		// Paginate the Pages
 		$pages = Paginator::make($pages->get('results'), $pages->get('total'), $this->per_page);
 
-		$this->layout->content = View::make('admin::page.index')->with('pages', $pages);
+		$this->layout->content = Module::page('page.index', $pages);
 	}
 
 	public function get_add()

@@ -8,7 +8,7 @@ use Layla\Module\Form;
 
 use Admin\Forms\Account\EditForm;
 
-class Admin_Account_Controller extends Admin_Base_Controller
+class Admin_Accounts_Controller extends Admin_Base_Controller
 {
 
 	public $edit_form;
@@ -86,9 +86,12 @@ class Admin_Account_Controller extends Admin_Base_Controller
 		return Redirect::to(prefix('admin').'account');
 	}
 
-	public function get_edit($id = null)
+	public function get_edit($id = null, $sub = null, $sub_id = null)
 	{
-		$this->layout->content = Module::page('account.edit', $id);
+		//var_dump($id, $sub, $sub_id); die;
+		$account = API::get(array('account', $id), array('version' => $sub_id));
+
+		$this->layout->content = Module::page('account.edit', $account);
 	}
 
 	public function put_edit($id = null)
