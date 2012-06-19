@@ -46,8 +46,8 @@ class Admin_Media_Controller extends Admin_Base_Controller
 		}
 
 		// Get the Accounts
-		$modules = API::get(array('module', 'all'), $options);
-		
+		$modules = API::get(array('media'), $options);
+
 		// Paginate the modules
 		$modules = Paginator::make($modules->get('results'), $modules->get('total'), $this->per_page);
 
@@ -80,7 +80,7 @@ class Admin_Media_Controller extends Admin_Base_Controller
 		}
 
 		// Get the Accounts
-		$mediagroups = API::get(array('mediagroup', 'all'), $options);
+		$mediagroups = API::get(array('media', $id, 'groups'), $options);
 		
 		// Paginate the mediagroups
 		$mediagroups = Paginator::make($mediagroups->get('results'), $mediagroups->get('total'), $this->per_page);
@@ -114,7 +114,7 @@ class Admin_Media_Controller extends Admin_Base_Controller
 		}
 
 		// Get the Accounts
-		$assets = API::get(array('asset', 'all'), $options);
+		$assets = API::get(array('media', $module_id, 'group', $id, 'assets'), $options);
 		
 		// Paginate the assets
 		$assets = Paginator::make($assets->get('results'), $assets->get('total'), $this->per_page);

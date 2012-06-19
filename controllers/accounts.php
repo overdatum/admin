@@ -49,7 +49,7 @@ class Admin_Accounts_Controller extends Admin_Base_Controller
 		}
 
 		// Get the Accounts
-		$accounts = API::get(array('account', 'all'), $options);
+		$accounts = API::get(array('accounts'), $options);
 
 		// Paginate the Accounts
 		$accounts = Paginator::make($accounts->get('results'), $accounts->get('total'), $this->per_page);

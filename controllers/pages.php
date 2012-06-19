@@ -41,7 +41,7 @@ class Admin_Pages_Controller extends Admin_Base_Controller
 		}
 
 		// Get the Pages
-		$pages = API::get(array('page', 'all'), $options);
+		$pages = API::get(array('pages'), $options);
 		
 		// Paginate the Pages
 		$pages = Paginator::make($pages->get('results'), $pages->get('total'), $this->per_page);

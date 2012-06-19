@@ -40,8 +40,6 @@ class Admin_Base_Controller extends Controller
 	{
 		parent::__construct();
 		
-		API::$component = 'admin';
-
 		$this->url = Config::get('layla.admin.url_prefix').'/';
 	}
 
