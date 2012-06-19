@@ -2,9 +2,71 @@
 
 use Layla\API;
 
-class Admin_Account_Form {
+class Admin_Module_Form {
 
-	public static function add($view)
+	public static function create($view)
+	{
+		$view->tabs(function($tabs)
+		{
+			$tabs->tab('Module Settings', function($view)
+			{
+				$view->text('name',  __('admin::module.create.form.name'), Input::old('name'));
+
+				$view->actions(function($view)
+				{
+					$view->next_tab('Next up, add some schemas &nbsp; <i class="icon-arrow-right icon-white"></i>', 'primary');
+				});
+			});
+
+			$tabs->tab('Schemas', function($view)
+			{
+				$view->table(function($table)
+				{
+					$table->header(array(
+						'name' => array('title' => __('admin::account.index.table.name'), 'attributes' => array('class' => 'first big')),
+						'relationships',
+						'buttons' => array('attributes' => array('class' => 'buttons last'))
+					));
+					$table->no_results(function($table)
+					{
+						$table->well(function($table)
+						{
+							$table->raw(__('admin::account.index.table.no_results'));
+						});
+					});
+					$table->display(array(
+						'relationships' => function($schema)
+						{
+							$relationships = '';
+							if(isset($schema->relationships))
+							{
+								foreach ($schema->relationships as $relationship)
+								{
+									$relationships .=
+										'<b>'.
+											$relationship->name.
+										'</b><br>'.
+										$relationship->type;
+								}
+							}
+							
+							return $relationships;						
+						},
+						'buttons' => function($schema)
+						{
+							return
+								HTML::link(prefix('admin').'module/add/', '<span class="icon-pencil"></span>', array('class' => 'btn btn-small')).
+								HTML::link(prefix('admin').'module/add/', '<span class="icon-trash icon-white"></span>', array('class' => 'btn btn-primary'));
+						}
+					));
+				});
+
+				$view->button('#add-schema', 'Add Schema', 'primary');
+			});
+		});
+	}
+
+	public static function install($view)
 	{
 		// Get Roles and put it in a nice array for the dropdown
 		$roles = array('' => '') + model_array_pluck(API::get(array('role', 'all'))->get('results'), function($role)

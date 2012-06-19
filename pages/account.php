@@ -4,103 +4,94 @@ use Layla\API;
 
 class Admin_Account_Page {
 
-	public function index($page, $accounts)
+	public function index($view, $accounts)
 	{
-		$page->page_header(function($page)
+		$templates = array(
+			'listitem' => View::make('admin::pages.accounts.listitem')
+		);
+
+		$view->notifications();
+
+		$view->full_list(function($view) use ($accounts, $templates)
 		{
-			$page->float_right(function($page)
+			$view->header(function($view)
 			{
-				$page->search();
-			});
-
-			$page->title(__('admin::account.index.title'));
-		});
-
-		$page->notifications();
-
-		$page->table(function($table) use ($accounts)
-		{
-			$table->header(array(
-				'name' => array('title' => __('admin::account.index.table.name'), 'attributes' => array('class' => 'first big')),
-				'email' => __('admin::account.index.table.email'),
-				'roles' => __('admin::account.index.table.roles'),
-				'buttons' => array('attributes' => array('class' => 'buttons last'))
-			));
-			$table->sortable(array('name', 'email'));
-			$table->rows($accounts);
-			$table->no_results(function($table)
-			{
-				$table->well(function($table)
+				$view->search();
+				$view->tabs(function($tab)
 				{
-					$table->raw(__('admin::account.index.table.no_results'));
+					$tab->add('<i class="icon-list"></i>');
+					$tab->add('<i class="icon-tree"></i>');
 				});
 			});
-			$table->display(array(
-				'roles' => function($account)
+
+			$view->items(function($view) use ($accounts, $templates)
+			{
+				if(count($accounts->results) > 0)
 				{
-					$roles = '';
-					if(isset($account->roles))
+					foreach ($accounts->results as $account)
 					{
-						foreach ($account->roles as $role)
-						{
-							$roles .=
-								'<b>'.
-									$role->lang->name.
-								'</b><br>'.
-								$role->lang->description;
-						}
+						$view->add($templates['listitem']->with('account', $account)->render());
 					}
-					
-					return $roles;						
-				},
-				'buttons' => function($account)
-				{
-					return
-						HTML::link(prefix('admin').'account/edit/'.$account->id, '<span class="icon-pencil"></span>', array('class' => 'btn btn-small')).
-						HTML::link(prefix('admin').'account/delete/'.$account->id, '<span class="icon-trash icon-white"></span>', array('class' => 'btn btn-primary'));
 				}
-			));
-		});
-
-		$page->links($accounts);
-
-		$page->float_right(function($page)
-		{
-			$page->button(prefix('admin').'account/add', 'Add account', 'primary');
-		});
-	}
-
-	public function add($page)
-	{
-		$page->page_header(function($page)
-		{
-			$page->float_right(function($page)
-			{
-				$page->search();
+				else
+				{
+					$view->no_results(__('admin::account.index.table.no_results'));
+				}
 			});
-
-			$page->title(__('admin::account.add.title'));
 		});
 
-		$page->form(Module::form('account.add'), 'POST', prefix('admin').'account/add');
+		$view->templates($templates);
 	}
 
-	public function edit($page, $id)
+	public function add($view)
 	{
-		$page->page_header(function($page)
-		{
-			$page->float_right(function($page)
-			{
-				$page->search();
-			});
-
-			$page->title(__('admin::account.edit.title'));
-		});
-
-		$page->form(Module::form('account.edit', $id), 'PUT', prefix('admin').'account/edit/'.$id);		
+		$view->form(Module::form('account.add'), 'POST', prefix('admin').'account/add');
 	}
 
-	public function delete($page, $id)
+	public function edit($view, $account)
+	{
+		$templates = array(
+			'versionitem' => View::make('admin::pages.accounts.versionitem')
+		);
+
+		$view->form(function($view) use ($account)
+		{
+			// The response body is the Account
+			$account = $account->get();
+
+			// Get Roles and put it in a nice array for the dropdown
+			$roles = array('' => '') + model_array_pluck(API::get(array('role', 'all'))->get('results'), function($role)
+			{
+				return $role->lang->name;
+			}, 'id');
+
+			// Get the Roles that belong to a User and put it in a nice array for the dropdown
+			$active_roles = array();
+			if(isset($account->roles))
+			{ 
+				$active_roles = model_array_pluck($account->roles, 'id', '');
+			}
+
+			// Get Languages and put it in a nice array for the dropdown
+			$languages = model_array_pluck(API::get(array('language', 'all'))->get('results'), function($language)
+			{
+				return $language->name;
+			}, 'id');
+
+			$view->text('name',  __('admin::account.edit.form.name'), Input::old('name', $account->name));
+			$view->text('email', __('admin::account.edit.form.email'), Input::old('email', $account->email));
+			$view->password('password', __('admin::account.edit.form.password'));
+			$view->multiple('roles[]', __('admin::account.edit.form.roles'), $roles, Input::old('roles', $active_roles));
+			$view->dropdown('language_id', __('admin::account.edit.form.language'), $languages, Input::old('language_id', $account->language->id));
+
+			$view->actions(function($view)
+			{
+				$view->submit(__('admin::account.edit.buttons.edit'), 'primary');
+			});
+		}, 'PUT', prefix('admin').'account/edit/'.$account->get('id'));
+	}
+
+	public function delete($view, $id)
 	{
 		// Get the Account
 		$response = API::get(array('account', $id));
@@ -114,22 +105,22 @@ class Admin_Account_Page {
 		// The response body is the Account
 		$account = $response->get();
 
-		$page->page_header(function($page)
+		$view->page_header(function($view)
 		{
-			$page->float_right(function($page)
+			$view->float_right(function($view)
 			{
-				$page->search();
+				$view->search();
 			});
 
-			$page->title(__('admin::account.delete.title'));
+			$view->title(__('admin::account.delete.title'));
 		});
 
-		$page->well(function($page) use ($account)
+		$view->well(function($view) use ($account)
 		{
-			$page->raw(__('admin::account.delete.message', array('name' => $account->name, 'email' => $account->email)));
+			$view->raw(__('admin::account.delete.message', array('name' => $account->name, 'email' => $account->email)));
 		});
 
-		$page->form(Module::form('account.delete', $id), 'DELETE', prefix('admin').'account/delete/'.$id);		
+		$view->form(Module::form('account.delete', $id), 'DELETE', prefix('admin').'account/delete/'.$id);		
 	}
 
 }
