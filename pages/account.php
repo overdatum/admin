@@ -56,11 +56,16 @@ class Admin_Account_Page {
 
 		$view->form(function($view) use ($account)
 		{
+			$view->page_header(function($view)
+			{
+				$view->title('EDIT ACCOUNT');
+			});
+
 			// The response body is the Account
 			$account = $account->get();
 
 			// Get Roles and put it in a nice array for the dropdown
-			$roles = array('' => '') + model_array_pluck(API::get(array('role', 'all'))->get('results'), function($role)
+			$roles = array('' => '') + model_array_pluck(API::get(array('roles'))->get('results'), function($role)
 			{
 				return $role->lang->name;
 			}, 'id');
@@ -73,7 +78,7 @@ class Admin_Account_Page {
 			}
 
 			// Get Languages and put it in a nice array for the dropdown
-			$languages = model_array_pluck(API::get(array('language', 'all'))->get('results'), function($language)
+			$languages = model_array_pluck(API::get(array('languages'))->get('results'), function($language)
 			{
 				return $language->name;
 			}, 'id');

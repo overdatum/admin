@@ -7,13 +7,13 @@ class Admin_Account_Form {
 	public static function add($view)
 	{
 		// Get Roles and put it in a nice array for the dropdown
-		$roles = array('' => '') + model_array_pluck(API::get(array('role', 'all'))->get('results'), function($role)
+		$roles = array('' => '') + model_array_pluck(API::get(array('roles'))->get('results'), function($role)
 		{
 			return $role->lang->name;
 		}, 'id');
 
 		// Get Languages and put it in a nice array for the dropdown
-		$languages = model_array_pluck(API::get(array('language', 'all'))->get('results'), function($language)
+		$languages = model_array_pluck(API::get(array('languages'))->get('results'), function($language)
 		{
 			return $language->name;
 		}, 'id');
@@ -45,7 +45,7 @@ class Admin_Account_Form {
 		$account = $response->get();
 
 		// Get Roles and put it in a nice array for the dropdown
-		$roles = array('' => '') + model_array_pluck(API::get(array('role', 'all'))->get('results'), function($role)
+		$roles = array('' => '') + model_array_pluck(API::get(array('roles'))->get('results'), function($role)
 		{
 			return $role->lang->name;
 		}, 'id');
@@ -58,7 +58,7 @@ class Admin_Account_Form {
 		}
 
 		// Get Languages and put it in a nice array for the dropdown
-		$languages = model_array_pluck(API::get(array('language', 'all'))->get('results'), function($language)
+		$languages = model_array_pluck(API::get(array('languages'))->get('results'), function($language)
 		{
 			return $language->name;
 		}, 'id');
