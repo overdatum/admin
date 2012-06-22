@@ -50,10 +50,6 @@ class Admin_Account_Page {
 
 	public function edit($view, $account)
 	{
-		$templates = array(
-			'versionitem' => View::make('admin::pages.accounts.versionitem')
-		);
-
 		$view->form(function($view) use ($account)
 		{
 			$view->page_header(function($view)

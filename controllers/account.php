@@ -8,7 +8,7 @@ use Layla\Module\Form;
 
 use Admin\Forms\Account\EditForm;
 
-class Admin_Accounts_Controller extends Admin_Base_Controller
+class Admin_Account_Controller extends Admin_Base_Controller
 {
 
 	public $edit_form;
@@ -26,7 +26,7 @@ class Admin_Accounts_Controller extends Admin_Base_Controller
 	/**
 	 * Account overview
 	 */
-	public function get_index()
+	public function get_read_multiple()
 	{
 		// Set API options
 		$options = array(
@@ -57,12 +57,12 @@ class Admin_Accounts_Controller extends Admin_Base_Controller
 		$this->layout->content = Module::page('account.index', $accounts);
 	}
 
-	public function get_add()
+	public function get_create()
 	{
 		$this->layout->content = Module::page('account.add');
 	}
 
-	public function post_add()
+	public function post_create()
 	{
 		$response = API::post(array('account'), Input::all());
 		
@@ -86,7 +86,7 @@ class Admin_Accounts_Controller extends Admin_Base_Controller
 		return Redirect::to(prefix('admin').'account');
 	}
 
-	public function get_edit($id = null, $sub = null, $sub_id = null)
+	public function get_update($id = null, $sub = null, $sub_id = null)
 	{
 		//var_dump($id, $sub, $sub_id); die;
 		$account = API::get(array('account', $id), array('version' => $sub_id));
@@ -94,7 +94,7 @@ class Admin_Accounts_Controller extends Admin_Base_Controller
 		$this->layout->content = Module::page('account.edit', $account);
 	}
 
-	public function put_edit($id = null)
+	public function put_update($id = null)
 	{
 		// Update the Account
 		$response = API::put(array('account', $id), Input::all());

@@ -23,7 +23,7 @@ class Admin_Media_Controller extends Admin_Base_Controller
 	/**
 	 * Account overview
 	 */
-	public function get_index()
+	public function get_read_multiple()
 	{
 		// Set API options
 		$options = array(

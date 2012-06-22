@@ -5,7 +5,7 @@ use Layla\API;
 /**
 * 
 */
-class Admin_Pages_Controller extends Admin_Base_Controller
+class Admin_Page_Controller extends Admin_Base_Controller
 {
 	/**
 	 * __construct
@@ -17,7 +17,7 @@ class Admin_Pages_Controller extends Admin_Base_Controller
 		parent::__construct();
 	}
 
-	public function get_index()
+	public function get_read_multiple()
 	{
 		// Set API options
 		$options = array(
@@ -49,7 +49,7 @@ class Admin_Pages_Controller extends Admin_Base_Controller
 		$this->layout->content = Module::page('page.index', $pages);
 	}
 
-	public function get_add()
+	public function get_create()
 	{
 		// Get Languages
 		$languages = model_array_pluck(API::get(array('language', 'all'))->get('results'), function($language)
@@ -68,7 +68,7 @@ class Admin_Pages_Controller extends Admin_Base_Controller
 									 ->with('layouts', $layouts);
 	}
 
-	public function post_add()
+	public function post_create()
 	{
 		$response = API::post(array('page'), Input::all());
 		// Error were found our data! Redirect to form with errors and old input
@@ -91,10 +91,10 @@ class Admin_Pages_Controller extends Admin_Base_Controller
 		return Redirect::to(prefix('admin').'page');
 	}
 
-	public function get_edit($id = null)
+	public function get_update($slug = null)
 	{
 		// Get the Page
-		$response = API::get(array('page', $id));
+		$response = API::get(array('page', $slug));
 
 		// Handle response codes other than 200 OK
 		if( ! $response->success)
@@ -106,27 +106,24 @@ class Admin_Pages_Controller extends Admin_Base_Controller
 		$page = $response->get();
 
 		// Get Languages
-		$languages = model_array_pluck(API::get(array('language', 'all'))->get('results'), function($language)
+		$languages = model_array_pluck(API::get(array('languages'))->get('results'), function($language)
 		{
 			return $language->name;
 		}, 'id');
 
 		// Get Layouts and put it in a nice array for the dropdown
-		$layouts = model_array_pluck(API::get(array('layout', 'all'))->get('results'), function($layout)
+		$layouts = model_array_pluck(API::get(array('layouts'))->get('results'), function($layout)
 		{
 			return $layout->name;
 		}, 'id');
 
-		$this->layout->content = View::make('admin::page.edit')
-									 ->with('page', $page)
-									 ->with('languages', $languages)
-									 ->with('layouts', $layouts);
+		$this->layout->content = Module::page('page.edit', $page);
 	}
 
-	public function put_edit($id = null)
+	public function put_update($slug = null)
 	{
 		// Update the Page
-		$response = API::put(array('page', $id), Input::all());
+		$response = API::put(array('page', $slug), Input::all());
 
 		// Handle response codes other than 200 OK
 		if( ! $response->success)
@@ -134,7 +131,7 @@ class Admin_Pages_Controller extends Admin_Base_Controller
 			// Errors were found on our data! Redirect to form with errors and old input
 			if($response->code == 400)
 			{
-				return Redirect::to(prefix('admin').'page/edit/' . $id)
+				return Redirect::to(prefix('admin').'page/edit/' . $slug)
 							 ->with('errors', new Messages($response->get()))
 					   ->with_input();
 			}
@@ -148,10 +145,10 @@ class Admin_Pages_Controller extends Admin_Base_Controller
 		return Redirect::to(prefix('admin').'page');
 	}
 
-	public function get_delete($id = null)
+	public function get_delete($slug = null)
 	{
 		// Get the Page
-		$response = API::get(array('page', $id));
+		$response = API::get(array('page', $slug));
 
 		// Handle response codes other than 200 OK
 		if( ! $response->success)
@@ -166,10 +163,10 @@ class Admin_Pages_Controller extends Admin_Base_Controller
 									 ->with('page', $page);
 	}
 
-	public function delete_delete($id = null)
+	public function delete_delete($slug = null)
 	{
 		// Delete the Page
-		$response = API::delete(array('page', $id));
+		$response = API::delete(array('page', $slug));
 
 		// Handle response codes other than 200 OK
 		if( ! $response->success)

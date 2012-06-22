@@ -25,10 +25,10 @@ Autoloader::namespaces(array(
 // Register controllers
 // --------------------------------------------------------------
 
-Route::opinionated(array(
+Route::pages(array(
 	'module' => array(
 		array(
-			'list',
+			'read_multiple',
 			'create',
 			'read',
 			'update',
@@ -38,7 +38,7 @@ Route::opinionated(array(
 	),
 	'account' => array(
 		array(
-			'list',
+			'read_multiple',
 			'create',
 			'read',
 			'update',
@@ -48,7 +48,7 @@ Route::opinionated(array(
 	),
 	'page' => array(
 		array(
-			'list',
+			'read_multiple',
 			'create',
 			'read',
 			'update',
@@ -58,7 +58,7 @@ Route::opinionated(array(
 	),
 	'language' => array(
 		array(
-			'list',
+			'read_multiple',
 			'create',
 			'read',
 			'update',
@@ -68,7 +68,7 @@ Route::opinionated(array(
 	),
 	'role' => array(
 		array(
-			'list',
+			'read_multiple',
 			'create',
 			'read',
 			'update',
@@ -78,7 +78,7 @@ Route::opinionated(array(
 	),
 	'layout' => array(
 		array(
-			'list',
+			'read_multiple',
 			'create',
 			'read',
 			'update',
@@ -88,12 +88,12 @@ Route::opinionated(array(
 	),
 	'media' => array(
 		array(
-			'list'
+			'read_multiple'
 		),
 		array(
 			'group' => array(
 				array(
-					'list',
+					'read_multiple',
 					'create',
 					'read',
 					'update',
@@ -102,7 +102,7 @@ Route::opinionated(array(
 				array(
 					'asset' => array(
 						array(
-							'list',
+							'read_multiple',
 							'create',
 							'read',
 							'update',
@@ -114,9 +114,7 @@ Route::opinionated(array(
 			)
 		)
 	)	
-), 'admin', 'manage', true);
-
-dd(Router::$routes);
+), 'admin', 'manage');
 
 // --------------------------------------------------------------
 // Start bundles
@@ -171,5 +169,5 @@ Module::register('page', 'page.delete', 'admin::page@delete');
 Module::register('form', 'page.delete', 'admin::page@delete');
 
 Module::register('page', 'media.index', 'admin::media@index');
-Module::register('page', 'media.groups', 'admin::media@groups');
-Module::register('page', 'media.assets', 'admin::media@assets');
+Module::register('page', 'media.group.index', 'admin::media.group@index');
+Module::register('page', 'media.group.asset.index', 'admin::media.group.asset@index');
