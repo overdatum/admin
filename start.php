@@ -27,16 +27,98 @@ Autoloader::namespaces(array(
 // Register controllers
 // --------------------------------------------------------------
 
-Route::get('manage/media/module/(:num)/group/(:num)', 'admin::media@group');
+Route::opinionated(array(
+	'module' => array(
+		array(
+			'list',
+			'create',
+			'read',
+			'update',
+			'delete'
+		),
+		array()
+	),
+	'account' => array(
+		array(
+			'list',
+			'create',
+			'read',
+			'update',
+			'delete'
+		),
+		array()
+	),
+	'page' => array(
+		array(
+			'list',
+			'create',
+			'read',
+			'update',
+			'delete'
+		),
+		array()
+	),
+	'language' => array(
+		array(
+			'list',
+			'create',
+			'read',
+			'update',
+			'delete'
+		),
+		array()
+	),
+	'role' => array(
+		array(
+			'list',
+			'create',
+			'read',
+			'update',
+			'delete'
+		),
+		array()
+	),
+	'layout' => array(
+		array(
+			'list',
+			'create',
+			'read',
+			'update',
+			'delete'
+		),
+		array()
+	),
+	'media' => array(
+		array(
+			'list'
+		),
+		array(
+			'group' => array(
+				array(
+					'list',
+					'create',
+					'read',
+					'update',
+					'delete'
+				),
+				array(
+					'asset' => array(
+						array(
+							'list',
+							'create',
+							'read',
+							'update',
+							'delete'
+						),
+						array()
+					)
+				)
+			)
+		)
+	)	
+), 'admin', 'manage', true);
 
-Route::controller(array(
-	'admin::accounts',
-	'admin::module',
-	'admin::media',
-	'admin::pages',
-	'admin::auth',
-));
-
+dd(Router::$routes);
 
 // --------------------------------------------------------------
 // Start bundles

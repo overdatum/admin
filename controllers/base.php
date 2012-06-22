@@ -41,6 +41,8 @@ class Admin_Base_Controller extends Controller
 		parent::__construct();
 		
 		$this->url = Config::get('layla.admin.url_prefix').'/';
+
+		View::share('base_url', URL::base());
 	}
 
 	/**
