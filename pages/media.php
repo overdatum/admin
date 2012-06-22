@@ -46,7 +46,7 @@ class Admin_Media_Page {
 	public function groups($view, $mediagroups, $module_id)
 	{
 		$templates = array(
-			'listitem' => View::make('admin::pages.media.groups.listitem')
+			'listitem' => View::make('admin::pages.media.group.listitem')
 		);
 
 		$view->notifications();
