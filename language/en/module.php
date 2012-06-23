@@ -8,7 +8,8 @@ return array(
 			'name' => 'name',
 			'email' => 'email',
 			'roles' => 'roles',
-			'no_results' => 'There are no accounts yet, add one!'
+			'no_search_results' => 'No modules have been found, try a broader search criteria',
+			'no_results' => 'There are no modules yet, add one!'
 		),
 		'buttons' => array(
 			'add' => 'Add module'

@@ -35,7 +35,14 @@ class Admin_Account_Page {
 				}
 				else
 				{
-					$view->no_results(__('admin::account.read_multiple.table.no_results'));
+					if(Input::get('q'))
+					{
+						$view->no_results(__('admin::account.read_multiple.table.no_search_results'));
+					}
+					else
+					{
+						$view->no_results(__('admin::account.read_multiple.table.no_results'));
+					}
 				}
 			});
 		});

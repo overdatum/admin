@@ -5,6 +5,7 @@ return array(
 	'read_multiple' => array(
 		'title' => 'Pages',
 		'table' => array(
+			'no_search_results' => 'No pages have been found, try a broader search criteria',
 			'no_results' => 'There are no pages yet, add one!'
 		),
 		'buttons' => array(

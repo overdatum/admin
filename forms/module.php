@@ -92,7 +92,7 @@ class Admin_Module_Form {
 		});
 	}
 
-	public static function edit($view, $id)
+	public static function update($view, $id)
 	{
 		// Get the Account
 		$response = API::get(array('account', $id));

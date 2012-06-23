@@ -8,6 +8,7 @@ return array(
 			'name' => 'naam',
 			'email' => 'email adres',
 			'roles' => 'rollen',
+			'no_search_results' => 'Er zijn geen accounts gevonden, probeer het nog eens met breedere zoek criteria',
 			'no_results' => 'Er zijn geen accounts gevonden, voeg er een toe!'
 		),
 		'buttons' => array(

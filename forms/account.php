@@ -4,7 +4,7 @@ use Layla\API;
 
 class Admin_Account_Form {
 
-	public static function add($view)
+	public static function create($view)
 	{
 		// Get Roles and put it in a nice array for the dropdown
 		$roles = array('' => '') + model_array_pluck(API::get(array('roles'))->get('results'), function($role)
@@ -30,7 +30,7 @@ class Admin_Account_Form {
 		});
 	}
 
-	public static function edit($view, $id)
+	public static function update($view, $id)
 	{
 		// Get the Account
 		$response = API::get(array('account', $id));

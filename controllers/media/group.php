@@ -37,8 +37,7 @@ class Admin_Media_Group_Controller extends Admin_Base_Controller
 			$options['search'] = array(
 				'string' => Input::get('q'),
 				'columns' => array(
-					'name', 
-					'email'
+					'name'
 				)
 			);
 		}

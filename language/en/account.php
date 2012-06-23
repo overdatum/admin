@@ -8,6 +8,7 @@ return array(
 			'name' => 'name',
 			'email' => 'email',
 			'roles' => 'roles',
+			'no_search_results' => 'No accounts have been found, try a broader search criteria',
 			'no_results' => 'There are no accounts yet, add one!'
 		),
 		'buttons' => array(
