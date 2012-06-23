@@ -51,7 +51,7 @@ class Admin_Media_Controller extends Admin_Base_Controller
 		// Paginate the modules
 		$modules = Paginator::make($modules->get('results'), $modules->get('total'), $this->per_page);
 
-		$this->layout->content = Module::page('media.index', $modules);
+		$this->layout->content = Module::page('media.read_multiple', $modules);
 	}
 
 	public function get_module($id = null)

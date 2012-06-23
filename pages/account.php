@@ -4,7 +4,7 @@ use Layla\API;
 
 class Admin_Account_Page {
 
-	public function index($view, $accounts)
+	public function read_multiple($view, $accounts)
 	{
 		$templates = array(
 			'listitem' => View::make('admin::pages.accounts.listitem')
@@ -35,7 +35,7 @@ class Admin_Account_Page {
 				}
 				else
 				{
-					$view->no_results(__('admin::account.index.table.no_results'));
+					$view->no_results(__('admin::account.read_multiple.table.no_results'));
 				}
 			});
 		});
@@ -43,12 +43,12 @@ class Admin_Account_Page {
 		$view->templates($templates);
 	}
 
-	public function add($view)
+	public function create($view)
 	{
-		$view->form(Module::form('account.add'), 'POST', prefix('admin').'account/add');
+		$view->form(Module::form('account.create'), 'POST', prefix('admin').'account/add');
 	}
 
-	public function edit($view, $account)
+	public function update($view, $account)
 	{
 		$view->form(function($view) use ($account)
 		{
@@ -79,15 +79,15 @@ class Admin_Account_Page {
 				return $language->name;
 			}, 'id');
 
-			$view->text('name',  __('admin::account.edit.form.name'), Input::old('name', $account->name));
-			$view->text('email', __('admin::account.edit.form.email'), Input::old('email', $account->email));
-			$view->password('password', __('admin::account.edit.form.password'));
-			$view->multiple('roles[]', __('admin::account.edit.form.roles'), $roles, Input::old('roles', $active_roles));
-			$view->dropdown('language_id', __('admin::account.edit.form.language'), $languages, Input::old('language_id', $account->language->id));
+			$view->text('name',  __('admin::account.update.form.name'), Input::old('name', $account->name));
+			$view->text('email', __('admin::account.update.form.email'), Input::old('email', $account->email));
+			$view->password('password', __('admin::account.update.form.password'));
+			$view->multiple('roles[]', __('admin::account.update.form.roles'), $roles, Input::old('roles', $active_roles));
+			$view->dropdown('language_id', __('admin::account.update.form.language'), $languages, Input::old('language_id', $account->language->id));
 
 			$view->actions(function($view)
 			{
-				$view->submit(__('admin::account.edit.buttons.edit'), 'primary');
+				$view->submit(__('admin::account.update.buttons.edit'), 'primary');
 			});
 		}, 'PUT', prefix('admin').'account/edit/'.$account->get('id'));
 	}

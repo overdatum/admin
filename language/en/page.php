@@ -2,7 +2,7 @@
 
 return array(
 
-	'index' => array(
+	'read_multiple' => array(
 		'title' => 'Pages',
 		'table' => array(
 			'no_results' => 'There are no pages yet, add one!'
@@ -12,7 +12,7 @@ return array(
 		)
 	),
 	
-	'add' => array(
+	'create' => array(
 		'title' => 'Create page',
 		'form' => array(
 			'lang' => array(
@@ -29,7 +29,7 @@ return array(
 		)
 	),
 	
-	'edit' => array(
+	'update' => array(
 		'title' => 'Edit page',
 		'form' => array(
 			'lang' => array(

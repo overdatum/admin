@@ -2,7 +2,7 @@
 
 return array(
 
-	'index' => array(
+	'read_multiple' => array(
 		'title' => 'Accounts',
 		'table' => array(
 			'name' => 'naam',
@@ -15,7 +15,7 @@ return array(
 		)
 	),
 	
-	'add' => array(
+	'create' => array(
 		'title' => 'Account maken',
 		'form' => array(
 			'name' => 'Naam',
@@ -29,7 +29,7 @@ return array(
 		)
 	),
 	
-	'edit' => array(
+	'update' => array(
 		'title' => 'Account wijzigen',
 		'form' => array(
 			'name' => 'Naam',

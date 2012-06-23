@@ -25,96 +25,7 @@ Autoloader::namespaces(array(
 // Register controllers
 // --------------------------------------------------------------
 
-Route::pages(array(
-	'module' => array(
-		array(
-			'read_multiple',
-			'create',
-			'read',
-			'update',
-			'delete'
-		),
-		array()
-	),
-	'account' => array(
-		array(
-			'read_multiple',
-			'create',
-			'read',
-			'update',
-			'delete'
-		),
-		array()
-	),
-	'page' => array(
-		array(
-			'read_multiple',
-			'create',
-			'read',
-			'update',
-			'delete'
-		),
-		array()
-	),
-	'language' => array(
-		array(
-			'read_multiple',
-			'create',
-			'read',
-			'update',
-			'delete'
-		),
-		array()
-	),
-	'role' => array(
-		array(
-			'read_multiple',
-			'create',
-			'read',
-			'update',
-			'delete'
-		),
-		array()
-	),
-	'layout' => array(
-		array(
-			'read_multiple',
-			'create',
-			'read',
-			'update',
-			'delete'
-		),
-		array()
-	),
-	'media' => array(
-		array(
-			'read_multiple'
-		),
-		array(
-			'group' => array(
-				array(
-					'read_multiple',
-					'create',
-					'read',
-					'update',
-					'delete'
-				),
-				array(
-					'asset' => array(
-						array(
-							'read_multiple',
-							'create',
-							'read',
-							'update',
-							'delete'
-						),
-						array()
-					)
-				)
-			)
-		)
-	)	
-), 'admin', 'manage');
+Route::pages(Config::get('routes'), 'admin', Config::get('layla.admin.url_prefix'));
 
 // --------------------------------------------------------------
 // Start bundles
@@ -152,22 +63,22 @@ Menu::handler('main')
 // --------------------------------------------------------------
 // Registering forms and pages
 // --------------------------------------------------------------
-Module::register('page', 'account.index', 'admin::account@index');
-Module::register('page', 'account.add', 'admin::account@add');
-Module::register('form', 'account.add', 'admin::account@add');
-Module::register('page', 'account.edit', 'admin::account@edit');
-Module::register('form', 'account.edit', 'admin::account@edit');
+Module::register('page', 'account.read_multiple', 'admin::account@read_multiple');
+Module::register('page', 'account.create', 'admin::account@create');
+Module::register('form', 'account.create', 'admin::account@create');
+Module::register('page', 'account.update', 'admin::account@update');
+Module::register('form', 'account.update', 'admin::account@update');
 Module::register('page', 'account.delete', 'admin::account@delete');
 Module::register('form', 'account.delete', 'admin::account@delete');
 
-Module::register('page', 'page.index', 'admin::page@index');
-Module::register('page', 'page.add', 'admin::page@add');
-Module::register('form', 'page.add', 'admin::page@add');
-Module::register('page', 'page.edit', 'admin::page@edit');
-Module::register('form', 'page.edit', 'admin::page@edit');
+Module::register('page', 'page.read_multiple', 'admin::page@read_multiple');
+Module::register('page', 'page.create', 'admin::page@create');
+Module::register('form', 'page.create', 'admin::page@create');
+Module::register('page', 'page.update', 'admin::page@update');
+Module::register('form', 'page.update', 'admin::page@update');
 Module::register('page', 'page.delete', 'admin::page@delete');
 Module::register('form', 'page.delete', 'admin::page@delete');
 
-Module::register('page', 'media.index', 'admin::media@index');
-Module::register('page', 'media.group.index', 'admin::media.group@index');
-Module::register('page', 'media.group.asset.index', 'admin::media.group.asset@index');
+Module::register('page', 'media.read_multiple', 'admin::media@read_multiple');
+Module::register('page', 'media.group.read_multiple', 'admin::media.group@read_multiple');
+Module::register('page', 'media.group.asset.read_multiple', 'admin::media.group.asset@read_multiple');

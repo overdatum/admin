@@ -49,7 +49,7 @@ class Admin_Media_Group_Controller extends Admin_Base_Controller
 		// Paginate the mediagroups
 		$mediagroups = Paginator::make($mediagroups->get('results'), $mediagroups->get('total'), $this->per_page);
 
-		$this->layout->content = Module::page('media.group.index', $mediagroups, $id);
+		$this->layout->content = Module::page('media.group.read_multiple', $mediagroups, $id);
 	}
 
 }

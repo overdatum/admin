@@ -2,7 +2,7 @@
 
 return array(
 
-	'index' => array(
+	'read_multiple' => array(
 		'title' => 'Accounts',
 		'table' => array(
 			'name' => 'name',
@@ -15,7 +15,7 @@ return array(
 		)
 	),
 	
-	'add' => array(
+	'create' => array(
 		'title' => 'Create Account',
 		'form' => array(
 			'name' => 'Name',
@@ -29,7 +29,7 @@ return array(
 		)
 	),
 	
-	'edit' => array(
+	'update' => array(
 		'title' => 'Edit Account',
 		'form' => array(
 			'name' => 'Name',

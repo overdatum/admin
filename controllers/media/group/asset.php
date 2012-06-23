@@ -51,7 +51,7 @@ class Admin_Media_Group_Asset_Controller extends Admin_Base_Controller
 		// Paginate the assets
 		$assets = Paginator::make($assets->get('results'), $assets->get('total'), $this->per_page);
 
-		$this->layout->content = Module::page('media.group.asset.index', $assets, $module_id, $id);
+		$this->layout->content = Module::page('media.group.asset.read_multiple', $assets, $module_id, $id);
 	}
 
 }

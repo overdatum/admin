@@ -4,7 +4,7 @@ use Layla\API;
 
 class Admin_Layout_Page {
 
-	public function index($view, $accounts)
+	public function read_multiple($view, $accounts)
 	{
 		$view->page_header(function($view)
 		{
@@ -13,7 +13,7 @@ class Admin_Layout_Page {
 				$view->search();
 			});
 
-			$view->title(__('admin::account.index.title'));
+			$view->title(__('admin::account.read_multiple.title'));
 		});
 
 		$view->notifications();
@@ -21,9 +21,9 @@ class Admin_Layout_Page {
 		$view->table(function($table) use ($accounts)
 		{
 			$table->header(array(
-				'name' => array('title' => __('admin::account.index.table.name'), 'attributes' => array('class' => 'first big')),
-				'email' => __('admin::account.index.table.email'),
-				'roles' => __('admin::account.index.table.roles'),
+				'name' => array('title' => __('admin::account.read_multiple.table.name'), 'attributes' => array('class' => 'first big')),
+				'email' => __('admin::account.read_multiple.table.email'),
+				'roles' => __('admin::account.read_multiple.table.roles'),
 				'buttons' => array('attributes' => array('class' => 'buttons last'))
 			));
 			$table->sortable(array('name', 'email'));
@@ -32,7 +32,7 @@ class Admin_Layout_Page {
 			{
 				$table->well(function($table)
 				{
-					$table->raw(__('admin::account.index.table.no_results'));
+					$table->raw(__('admin::account.read_multiple.table.no_results'));
 				});
 			});
 			$table->display(array(
@@ -70,7 +70,7 @@ class Admin_Layout_Page {
 		});
 	}
 
-	public function add($view)
+	public function create($view)
 	{
 		$view->page_header(function($view)
 		{
@@ -79,13 +79,13 @@ class Admin_Layout_Page {
 				$view->search();
 			});
 
-			$view->title(__('admin::account.add.title'));
+			$view->title(__('admin::account.create.title'));
 		});
 
-		$view->form(Module::form('account.add'), 'POST', prefix('admin').'account/add');
+		$view->form(Module::form('account.create'), 'POST', prefix('admin').'account/add');
 	}
 
-	public function edit($view, $id)
+	public function update($view, $id)
 	{
 		$view->page_header(function($view)
 		{
@@ -94,10 +94,10 @@ class Admin_Layout_Page {
 				$view->search();
 			});
 
-			$view->title(__('admin::account.edit.title'));
+			$view->title(__('admin::account.update.title'));
 		});
 
-		$view->form(Module::form('account.edit', $id), 'PUT', prefix('admin').'account/edit/'.$id);		
+		$view->form(Module::form('account.update', $id), 'PUT', prefix('admin').'account/edit/'.$id);		
 	}
 
 	public function delete($view, $id)

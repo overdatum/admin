@@ -54,12 +54,12 @@ class Admin_Account_Controller extends Admin_Base_Controller
 		// Paginate the Accounts
 		$accounts = Paginator::make($accounts->get('results'), $accounts->get('total'), $this->per_page);
 
-		$this->layout->content = Module::page('account.index', $accounts);
+		$this->layout->content = Module::page('account.read_multiple', $accounts);
 	}
 
 	public function get_create()
 	{
-		$this->layout->content = Module::page('account.add');
+		$this->layout->content = Module::page('account.create');
 	}
 
 	public function post_create()
@@ -91,7 +91,7 @@ class Admin_Account_Controller extends Admin_Base_Controller
 		//var_dump($id, $sub, $sub_id); die;
 		$account = API::get(array('account', $id), array('version' => $sub_id));
 
-		$this->layout->content = Module::page('account.edit', $account);
+		$this->layout->content = Module::page('account.update', $account);
 	}
 
 	public function put_update($id = null)

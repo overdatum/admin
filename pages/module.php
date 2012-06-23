@@ -4,7 +4,7 @@ use Layla\API;
 
 class Admin_Module_Page {
 
-	public function index($view, $modules)
+	public function read_multiple($view, $modules)
 	{
 		$templates = array(
 			'listitem' => View::make('admin::pages.media.listitem')
@@ -35,7 +35,7 @@ class Admin_Module_Page {
 				}
 				else
 				{
-					$view->no_results(__('admin::media.index.table.no_results'));
+					$view->no_results(__('admin::media.read_multiple.table.no_results'));
 				}
 			});
 		});
@@ -58,7 +58,7 @@ class Admin_Module_Page {
 		$view->form(Module::form('module.create'), 'POST', prefix('admin').'module/create');
 	}
 
-	public function edit($view, $id)
+	public function update($view, $id)
 	{
 		$view->page_header(function($view)
 		{
@@ -70,7 +70,7 @@ class Admin_Module_Page {
 			$view->title(__('admin::module.edit.title'));
 		});
 
-		$view->form(Module::form('module.edit', $id), 'PUT', prefix('admin').'module/edit/'.$id);		
+		$view->form(Module::form('module.update', $id), 'PUT', prefix('admin').'module/edit/'.$id);		
 	}
 
 	public function delete($view, $id)

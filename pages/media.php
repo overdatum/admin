@@ -4,7 +4,7 @@ use Layla\API;
 
 class Admin_Media_Page {
 
-	public function index($view, $modules)
+	public function read_multiple($view, $modules)
 	{
 		$templates = array(
 			'listitem' => View::make('admin::pages.media.listitem')

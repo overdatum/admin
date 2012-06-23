@@ -46,7 +46,7 @@ class Admin_Page_Controller extends Admin_Base_Controller
 		// Paginate the Pages
 		$pages = Paginator::make($pages->get('results'), $pages->get('total'), $this->per_page);
 
-		$this->layout->content = Module::page('page.index', $pages);
+		$this->layout->content = Module::page('page.read_multiple', $pages);
 	}
 
 	public function get_create()
@@ -63,7 +63,7 @@ class Admin_Page_Controller extends Admin_Base_Controller
 			return $layout->name;
 		}, 'id');
 
-		$this->layout->content = View::make('admin::page.add')
+		$this->layout->content = View::make('admin::page.create')
 									 ->with('languages', $languages)
 									 ->with('layouts', $layouts);
 	}
@@ -117,7 +117,7 @@ class Admin_Page_Controller extends Admin_Base_Controller
 			return $layout->name;
 		}, 'id');
 
-		$this->layout->content = Module::page('page.edit', $page);
+		$this->layout->content = Module::page('page.update', $page);
 	}
 
 	public function put_update($slug = null)

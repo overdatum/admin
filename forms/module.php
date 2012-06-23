@@ -23,7 +23,7 @@ class Admin_Module_Form {
 				$view->table(function($table)
 				{
 					$table->header(array(
-						'name' => array('title' => __('admin::account.index.table.name'), 'attributes' => array('class' => 'first big')),
+						'name' => array('title' => __('admin::account.read_multiple.table.name'), 'attributes' => array('class' => 'first big')),
 						'relationships',
 						'buttons' => array('attributes' => array('class' => 'buttons last'))
 					));
@@ -31,7 +31,7 @@ class Admin_Module_Form {
 					{
 						$table->well(function($table)
 						{
-							$table->raw(__('admin::account.index.table.no_results'));
+							$table->raw(__('admin::account.read_multiple.table.no_results'));
 						});
 					});
 					$table->display(array(
@@ -80,15 +80,15 @@ class Admin_Module_Form {
 			return $language->name;
 		}, 'id');
 
-		$view->text('name',  __('admin::account.add.form.name'), Input::old('name'));
-		$view->text('email', __('admin::account.add.form.email'), Input::old('email'));
-		$view->password('password', __('admin::account.add.form.password'));
-		$view->multiple('roles[]', __('admin::account.add.form.roles'), $roles, Input::old('roles'));
-		$view->dropdown('language_id', __('admin::account.add.form.language'), $languages, Input::old('language_id'));
+		$view->text('name',  __('admin::account.create.form.name'), Input::old('name'));
+		$view->text('email', __('admin::account.create.form.email'), Input::old('email'));
+		$view->password('password', __('admin::account.create.form.password'));
+		$view->multiple('roles[]', __('admin::account.create.form.roles'), $roles, Input::old('roles'));
+		$view->dropdown('language_id', __('admin::account.create.form.language'), $languages, Input::old('language_id'));
 
 		$view->actions(function($view)
 		{
-			$view->submit(__('admin::account.add.buttons.add'), 'primary');
+			$view->submit(__('admin::account.create.buttons.add'), 'primary');
 		});
 	}
 
@@ -125,15 +125,15 @@ class Admin_Module_Form {
 			return $language->name;
 		}, 'id');
 
-		$view->text('name',  __('admin::account.edit.form.name'), Input::old('name', $account->name));
-		$view->text('email', __('admin::account.edit.form.email'), Input::old('email', $account->email));
-		$view->password('password', __('admin::account.edit.form.password'));
-		$view->multiple('roles[]', __('admin::account.edit.form.roles'), $roles, Input::old('roles', $active_roles));
-		$view->dropdown('language_id', __('admin::account.edit.form.language'), $languages, Input::old('language_id', $account->language->id));
+		$view->text('name',  __('admin::account.update.form.name'), Input::old('name', $account->name));
+		$view->text('email', __('admin::account.update.form.email'), Input::old('email', $account->email));
+		$view->password('password', __('admin::account.update.form.password'));
+		$view->multiple('roles[]', __('admin::account.update.form.roles'), $roles, Input::old('roles', $active_roles));
+		$view->dropdown('language_id', __('admin::account.update.form.language'), $languages, Input::old('language_id', $account->language->id));
 
 		$view->actions(function($view)
 		{
-			$view->submit(__('admin::account.edit.buttons.edit'), 'primary');
+			$view->submit(__('admin::account.update.buttons.edit'), 'primary');
 		});
 	}
 

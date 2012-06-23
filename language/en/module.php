@@ -2,7 +2,7 @@
 
 return array(
 
-	'index' => array(
+	'read_multiple' => array(
 		'title' => 'Modules',
 		'table' => array(
 			'name' => 'name',
@@ -43,7 +43,7 @@ return array(
 		)
 	),
 	
-	'edit' => array(
+	'update' => array(
 		'title' => 'Edit Module',
 		'form' => array(
 			'name' => 'Name',
