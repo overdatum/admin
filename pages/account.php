@@ -66,7 +66,7 @@ class Admin_Account_Page {
 
 			// The response body is the Account
 			$account = $account->get();
-
+			
 			// Get Roles and put it in a nice array for the dropdown
 			$roles = array('' => '') + model_array_pluck(API::get(array('roles'))->get('results'), function($role)
 			{
@@ -96,7 +96,7 @@ class Admin_Account_Page {
 			{
 				$view->submit(__('admin::account.update.buttons.edit'), 'primary');
 			});
-		}, 'PUT', prefix('admin').'account/edit/'.$account->get('id'));
+		}, 'PUT', prefix('admin').'account/'.$account->get('id').'/edit');
 	}
 
 	public function delete($view, $id)

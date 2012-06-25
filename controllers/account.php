@@ -83,7 +83,7 @@ class Admin_Account_Controller extends Admin_Base_Controller
 		// Add success notification
 		Notification::success('Successfully created account');
 
-		return Redirect::to(prefix('admin').'account');
+		return Redirect::to(prefix('admin').'accounts');
 	}
 
 	public function get_update($id = null, $sub = null, $sub_id = null)
@@ -105,7 +105,7 @@ class Admin_Account_Controller extends Admin_Base_Controller
 			// Errors were found on our data! Redirect to form with errors and old input
 			if($response->code == 400)
 			{
-				return Redirect::to(prefix('admin').'account/edit/' . $id)
+				return Redirect::to(prefix('admin').'account/'.$id.'/edit')
 							 ->with('errors', new Messages($response->get()))
 					   ->with_input('except', array('password'));
 			}
@@ -116,7 +116,7 @@ class Admin_Account_Controller extends Admin_Base_Controller
 		// Add success notification
 		Notification::success('Successfully updated account');
 
-		return Redirect::to(prefix('admin').'account');
+		return Redirect::to(prefix('admin').'accounts');
 	}
 
 	public function get_delete($id = null)
@@ -138,7 +138,7 @@ class Admin_Account_Controller extends Admin_Base_Controller
 		// Add success notification
 		Notification::success('Successfully deleted account');
 
-		return Redirect::to(prefix('admin').'account');
+		return Redirect::to(prefix('admin').'accounts');
 	}
 
 }
