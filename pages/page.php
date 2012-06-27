@@ -59,28 +59,21 @@ class Admin_Page_Page {
 				$view->title(__('admin::page.update.title'));
 			});
 
-			// Get Languages and put it in a nice array for the dropdown
-			$languages = model_array_pluck(API::get(array('languages'))->get('results'), function($language)
-			{
-				return $language->name;
-			}, 'id');
-
-			$view->text('meta_title',  __('admin::page.update.form.lang.meta_title'), $page->lang->meta_title);
-			$view->text('meta_keywords', __('admin::page.update.form.lang.meta_keywords'), $page->lang->meta_keywords);
-			$view->textarea('meta_description', __('admin::page.update.form.lang.meta_description'), $page->lang->meta_description);
+			$view->text('lang['.$page->lang->language_id.'][meta_title]',  __('admin::page.update.form.lang.meta_title'), $page->lang->meta_title);
+			$view->text('lang['.$page->lang->language_id.'][meta_keywords]', __('admin::page.update.form.lang.meta_keywords'), $page->lang->meta_keywords);
+			$view->textarea('lang['.$page->lang->language_id.'][meta_description]', __('admin::page.update.form.lang.meta_description'), $page->lang->meta_description);
 
 			/**
 			 * @todo stop laravel from adding id's to the form fields
 			 */
-			$view->text('temp_menu', __('admin::page.update.form.lang.menu'), $page->lang->menu);
-			$view->text('url', __('admin::page.update.form.lang.url'), $page->lang->url);
-
+			$view->text('lang['.$page->lang->language_id.'][menu]', __('admin::page.update.form.lang.menu'), $page->lang->menu);
+			$view->text('lang['.$page->lang->language_id.'][url]', __('admin::page.update.form.lang.url'), $page->lang->url);
 
 			$view->actions(function($view)
 			{
 				$view->submit(__('admin::page.update.buttons.edit'), 'primary');
 			});
-		}, 'PUT', prefix('admin').'page/edit/'.$page->id);
+		}, 'PUT', prefix('admin').'page/'.$page->lang->slug.'/edit');
 	}
 
 }
