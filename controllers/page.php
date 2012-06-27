@@ -88,7 +88,7 @@ class Admin_Page_Controller extends Admin_Base_Controller
 		// Add success notification
 		Notification::success('Successfully created page');
 
-		return Redirect::to(prefix('admin').'page');
+		return Redirect::to(prefix('admin').'pages');
 	}
 
 	public function get_update($slug = null)
@@ -142,7 +142,7 @@ class Admin_Page_Controller extends Admin_Base_Controller
 		// Add success notification
 		Notification::success('Successfully updated page');
 
-		return Redirect::to(prefix('admin').'page');
+		return Redirect::to(prefix('admin').'pages');
 	}
 
 	public function get_delete($slug = null)
@@ -177,7 +177,7 @@ class Admin_Page_Controller extends Admin_Base_Controller
 		// Add success notification
 		Notification::success('Successfully deleted page');
 
-		return Redirect::to(prefix('admin').'page');
+		return Redirect::to(prefix('admin').'pages');
 	}
 
 }

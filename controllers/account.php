@@ -66,7 +66,7 @@ class Admin_Account_Controller extends Admin_Base_Controller
 	{
 		$response = API::post(array('account'), Input::all());
 		
-		// Error were found our data! Redirect to form with errors and old input
+		// Something went wrong
 		if( ! $response->success)
 		{
 			// Errors were found on our data! Redirect to form with errors and old input
