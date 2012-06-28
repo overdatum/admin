@@ -40,7 +40,7 @@ class Admin_Media_Group_Page {
 				}
 				else
 				{
-					$view->no_results(__('admin::mediagroup.index.table.no_results'));
+					$view->no_results(__('admin::media.group.read_multiple.list.no_results'));
 				}
 			});
 		});

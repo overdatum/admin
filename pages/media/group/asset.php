@@ -41,7 +41,7 @@ class Admin_Media_Group_Asset_Page {
 				}
 				else
 				{
-					$view->no_results(__('admin::asset.index.table.no_results'));
+					$view->no_results(__('admin::media.group.asset.read_multiple.list.no_results'));
 				}
 			});
 		});
