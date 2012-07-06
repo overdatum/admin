@@ -27,6 +27,11 @@ Autoloader::namespaces(array(
 
 Route::pages(Config::get('routes'), 'admin', Config::get('layla.admin.url_prefix'));
 
+$admin_prefix = Config::get('layla.admin.url_prefix') ? Config::get('layla.admin.url_prefix').'/' : '';
+
+Route::get($admin_prefix.'page/(:any)/translate/(:any)', 'admin::page@translate');
+Route::put($admin_prefix.'page/(:any)/translate/(:any)', 'admin::page@translate');
+
 // --------------------------------------------------------------
 // Start bundles
 // --------------------------------------------------------------
@@ -52,33 +57,29 @@ View::composer('admin::layouts.default', function($view)
 // Adding menu items
 // --------------------------------------------------------------
 Menu::handler('main')
-	->add('home', 'Home', null, array('class' => 'icon-home'))
-	->add('pages', 'Pages', null, array('class' => 'icon-pages'))
-	->add('media', 'Media', null, array('class' => 'icon-media'))
-	->add('accounts', 'Accounts', null, array('class' => 'icon-accounts'))
-	->add('settings', 'Settings', null, array('class' => 'icon-settings'))
+	->add('home', 'Home', null, array('class' => 'menu-icon-home'))
+	->add('pages', 'Pages', null, array('class' => 'menu-icon-pages'))
+	->add('layouts', 'Layouts', null, array('class' => 'menu-icon-layouts'))
+	->add('media', 'Media', null, array('class' => 'menu-icon-media'))
+	->add('accounts', 'Accounts', null, array('class' => 'menu-icon-accounts'))
+	->add('settings', 'Settings', null, array('class' => 'menu-icon-settings'))
 	->add('#', '', null, array('class' => 'logo'))
-	->add('profile', 'Profile', null, array('class' => 'icon-profile'));
+	->add('profile', 'Profile', null, array('class' => 'menu-icon-profile'));
 
 // --------------------------------------------------------------
 // Registering forms and pages
 // --------------------------------------------------------------
-Module::register('page', 'account.read_multiple', 'admin::account@read_multiple');
-Module::register('page', 'account.create', 'admin::account@create');
-Module::register('form', 'account.create', 'admin::account@create');
-Module::register('page', 'account.update', 'admin::account@update');
-Module::register('form', 'account.update', 'admin::account@update');
-Module::register('page', 'account.delete', 'admin::account@delete');
-Module::register('form', 'account.delete', 'admin::account@delete');
+Artifact::register('page', 'account.read_multiple', 'admin::account@read_multiple');
+Artifact::register('page', 'account.create', 'admin::account@create');
+Artifact::register('page', 'account.update', 'admin::account@update');
+Artifact::register('page', 'account.delete', 'admin::account@delete');
 
-Module::register('page', 'page.read_multiple', 'admin::page@read_multiple');
-Module::register('page', 'page.create', 'admin::page@create');
-Module::register('form', 'page.create', 'admin::page@create');
-Module::register('page', 'page.update', 'admin::page@update');
-Module::register('form', 'page.update', 'admin::page@update');
-Module::register('page', 'page.delete', 'admin::page@delete');
-Module::register('form', 'page.delete', 'admin::page@delete');
+Artifact::register('page', 'page.read_multiple', 'admin::page@read_multiple');
+Artifact::register('page', 'page.create', 'admin::page@create');
+Artifact::register('page', 'page.update', 'admin::page@update');
+Artifact::register('page', 'page.translate', 'admin::page@translate');
+Artifact::register('page', 'page.delete', 'admin::page@delete');
 
-Module::register('page', 'media.read_multiple', 'admin::media@read_multiple');
-Module::register('page', 'media.group.read_multiple', 'admin::media.group@read_multiple');
-Module::register('page', 'media.group.asset.read_multiple', 'admin::media.group.asset@read_multiple');
+Artifact::register('page', 'media.read_multiple', 'admin::media@read_multiple');
+Artifact::register('page', 'media.group.read_multiple', 'admin::media.group@read_multiple');
+Artifact::register('page', 'media.group.asset.read_multiple', 'admin::media.group.asset@read_multiple');
