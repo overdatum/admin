@@ -3,7 +3,7 @@
 use Laravel\Messages;
 
 use Layla\API;
-use Layla\Module;
+use Layla\Artifact;
 
 class Admin_Media_Group_Controller extends Admin_Base_Controller
 {
@@ -48,7 +48,9 @@ class Admin_Media_Group_Controller extends Admin_Base_Controller
 		// Paginate the mediagroups
 		$mediagroups = Paginator::make($mediagroups->get('results'), $mediagroups->get('total'), $this->per_page);
 
-		$this->layout->content = Module::page('media.group.read_multiple', $mediagroups, $id);
+		$this->layout->content = Artifact::page('media.group.read_multiple')
+			->with('mediagroups', $mediagroups)
+			->with('module_id', $id);
 	}
 
 }

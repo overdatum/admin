@@ -3,7 +3,7 @@
 use Laravel\Messages;
 
 use Layla\API;
-use Layla\Module;
+use Layla\Artifact;
 
 class Admin_Media_Group_Asset_Controller extends Admin_Base_Controller
 {
@@ -51,7 +51,10 @@ class Admin_Media_Group_Asset_Controller extends Admin_Base_Controller
 		// Paginate the assets
 		$assets = Paginator::make($assets->get('results'), $assets->get('total'), $this->per_page);
 
-		$this->layout->content = Module::page('media.group.asset.read_multiple', $assets, $module_id, $id);
+		$this->layout->content = Artifact::page('media.group.asset.read_multiple')
+			->with('assets', $assets)
+			->with('module_id', $module_id)
+			->with('mediagroup_id', $id);
 	}
 
 }

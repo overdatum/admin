@@ -3,8 +3,8 @@
 use Laravel\Messages;
 
 use Layla\API;
-use Layla\Module;
-use Layla\Module\Form;
+use Layla\Artifact;
+use Layla\Artifact\Form;
 
 use Admin\Forms\Account\EditForm;
 
@@ -54,12 +54,13 @@ class Admin_Account_Controller extends Admin_Base_Controller
 		// Paginate the Accounts
 		$accounts = Paginator::make($accounts->get('results'), $accounts->get('total'), $this->per_page);
 
-		$this->layout->content = Module::page('account.read_multiple', $accounts);
+		$this->layout->content = Artifact::page('account.read_multiple')
+			->with('accounts', $accounts);
 	}
 
 	public function get_create()
 	{
-		$this->layout->content = Module::page('account.create');
+		$this->layout->content = Artifact::page('account.create');
 	}
 
 	public function post_create()
@@ -91,7 +92,8 @@ class Admin_Account_Controller extends Admin_Base_Controller
 		//var_dump($id, $sub, $sub_id); die;
 		$account = API::get(array('account', $id), array('version' => $sub_id));
 
-		$this->layout->content = Module::page('account.update', $account);
+		$this->layout->content = Artifact::page('account.update')
+			->with('account', $account);
 	}
 
 	public function put_update($id = null)
@@ -121,7 +123,8 @@ class Admin_Account_Controller extends Admin_Base_Controller
 
 	public function get_delete($id = null)
 	{
-		$this->layout->content = Module::page('account.delete', $id);
+		$this->layout->content = Artifact::page('account.delete')
+			->with('id', $id);
 	}
 
 	public function delete_delete($id = null)

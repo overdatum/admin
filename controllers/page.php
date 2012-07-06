@@ -46,26 +46,20 @@ class Admin_Page_Controller extends Admin_Base_Controller
 		// Paginate the Pages
 		$pages = Paginator::make($pages->get('results'), $pages->get('total'), $this->per_page);
 
-		$this->layout->content = Module::page('page.read_multiple', $pages);
+		$this->layout->content = Artifact::page('page.read_multiple')
+			->with('pages', $pages);
 	}
 
 	public function get_create()
 	{
-		// Get Languages
-		$languages = model_array_pluck(API::get(array('language', 'all'))->get('results'), function($language)
-		{
-			return $language->name;
-		}, 'id');
-
 		// Get Layouts and put it in a nice array for the dropdown
 		$layouts = model_array_pluck(API::get(array('layout', 'all'))->get('results'), function($layout)
 		{
 			return $layout->name;
 		}, 'id');
 
-		$this->layout->content = View::make('admin::page.create')
-									 ->with('languages', $languages)
-									 ->with('layouts', $layouts);
+		$this->layout->content = Artifact::page('page.create')
+			->with('layouts', $layouts);
 	}
 
 	public function post_create()
@@ -91,10 +85,50 @@ class Admin_Page_Controller extends Admin_Base_Controller
 		return Redirect::to(prefix('admin').'pages');
 	}
 
+	public function get_translate($slug = null, $language_slug = null)
+	{
+		if( ! is_null($slug))
+		{
+			$response = API::get(array('page', $slug));
+			
+			if($response->code !== 200)
+			{
+				return Event::first($response->code);
+			}
+
+			$page = $response->get();
+		}
+
+		if( ! is_null($language_slug))
+		{
+			$response = API::get(array('language', $language_slug));
+			
+			if($response->code !== 200)
+			{
+				return Event::first($response->code);
+			}
+
+			$language = $response->get();
+		}
+
+		// Get Layouts and put it in a nice array for the dropdown
+		$layouts = model_array_pluck(API::get(array('layouts'))->get('results'), function($layout)
+		{
+			return $layout->name;
+		}, 'id');
+
+		$this->layout->content = Artifact::page('page.translate')
+			->with('id', $page->id)
+			->with('language', $language)
+			->with('layouts', $layouts);
+	}
+
 	public function get_update($slug = null)
 	{
+		$options = array();
+
 		// Get the Page
-		$response = API::get(array('page', $slug));
+		$response = API::get(array('page', $slug), $options);
 
 		// Handle response codes other than 200 OK
 		if( ! $response->success)
@@ -105,11 +139,14 @@ class Admin_Page_Controller extends Admin_Base_Controller
 		// The response body is the Page
 		$page = $response->get();
 
-		// Get Languages
-		$languages = model_array_pluck(API::get(array('languages'))->get('results'), function($language)
+		$response = API::get(array('language', $page->lang->language_id));
+		
+		if($response->code !== 200)
 		{
-			return $language->name;
-		}, 'id');
+			return Event::first($response->code);
+		}
+
+		$language = $response->get();
 
 		// Get Layouts and put it in a nice array for the dropdown
 		$layouts = model_array_pluck(API::get(array('layouts'))->get('results'), function($layout)
@@ -117,7 +154,9 @@ class Admin_Page_Controller extends Admin_Base_Controller
 			return $layout->name;
 		}, 'id');
 
-		$this->layout->content = Module::page('page.update', $page);
+		$this->layout->content = Artifact::page('page.update')
+			->with('language', $language)
+			->with('page', $page);
 	}
 
 	public function put_update($slug = null)
@@ -132,35 +171,42 @@ class Admin_Page_Controller extends Admin_Base_Controller
 			if($response->code == 400)
 			{
 				return Redirect::to(prefix('admin').'page/edit/' . $slug)
-							 ->with('errors', new Messages($response->get()))
-					   ->with_input();
+					->with('errors', new Messages($response->get()))
+					->with_input();
 			}
 
 			return Event::first($response->code);
 		}
 
 		// Add success notification
-		Notification::success('Successfully updated page');
+		Notification::success('Successfully updated page translation');
 
 		return Redirect::to(prefix('admin').'pages');
 	}
 
-	public function get_delete($slug = null)
+	public function put_translate($id = null, $language_slug = null)
 	{
-		// Get the Page
-		$response = API::get(array('page', $slug));
+		// Translate the Page
+		$response = API::put(array('page', $id), Input::all());
 
 		// Handle response codes other than 200 OK
 		if( ! $response->success)
 		{
+			// Errors were found on our data! Redirect to form with errors and old input
+			if($response->code == 400)
+			{
+				return Redirect::to(prefix('admin').'page/translate/'.$id.'/'.$language_slug)
+					->with('errors', new Messages($response->get()))
+					->with_input();
+			}
+
 			return Event::first($response->code);
 		}
 
-		// The request body is the Page
-		$page = $response->get();
+		// Add success notification
+		Notification::success('Successfully translated page');
 
-		$this->layout->content = View::make('admin::page.delete')
-									 ->with('page', $page);
+		return Redirect::to(prefix('admin').'pages');
 	}
 
 	public function delete_delete($slug = null)
