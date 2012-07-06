@@ -4,8 +4,12 @@ use Layla\API;
 
 class Admin_Account_Page {
 
-	public function read_multiple($view, $accounts)
+	public function read_multiple($view, $data)
 	{
+		extract($data);
+
+		Asset::container('footer')->add('flyout', 'js/flyout.js');
+
 		$templates = array(
 			'listitem' => View::make('admin::pages.accounts.listitem')
 		);
@@ -84,8 +88,10 @@ class Admin_Account_Page {
 		}, 'POST', prefix('admin').'account/add');
 	}
 
-	public function update($view, $account)
+	public function update($view, $data)
 	{
+		extract($data);
+
 		$view->form(function($view) use ($account)
 		{
 			$view->page_header(function($view)
@@ -128,8 +134,10 @@ class Admin_Account_Page {
 		}, 'PUT', prefix('admin').'account/'.$account->get('id').'/edit');
 	}
 
-	public function delete($view, $id)
+	public function delete($view, $data)
 	{
+		extract($data);
+
 		// Get the Account
 		$response = API::get(array('account', $id));
 
@@ -157,7 +165,7 @@ class Admin_Account_Page {
 			$view->raw(__('admin::account.delete.message', array('name' => $account->name, 'email' => $account->email)));
 		});
 
-		$view->form(Module::form('account.delete', $id), 'DELETE', prefix('admin').'account/delete/'.$id);		
+		$view->form(Artifact::form('account.delete', $id), 'DELETE', prefix('admin').'account/delete/'.$id);		
 	}
 
 }

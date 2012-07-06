@@ -4,8 +4,12 @@ use Layla\API;
 
 class Admin_Page_Page {
 
-	public function read_multiple($view, $pages)
+	public function read_multiple($view, $data)
 	{
+		extract($data);
+
+		Asset::container('footer')->add('flyout', 'js/flyout.js');
+
 		$templates = array(
 			'listitem' => View::make('admin::pages.pages.listitem')
 		);
@@ -50,13 +54,43 @@ class Admin_Page_Page {
 		$view->templates($templates);
 	}
 
-	public function update($view, $page)
+	public function translate($view, $data)
 	{
-		$view->form(function($view) use ($page)
+		extract($data);
+
+		$view->form(function($view) use ($id, $language)
 		{
-			$view->page_header(function($view)
+			$view->page_header(function($view) use ($language)
 			{
-				$view->title(__('admin::page.update.title'));
+				$view->title(__('admin::page.translate.title', array('language' => $language->name)));
+			});
+
+			$view->text('lang['.$language->id.'][meta_title]',  __('admin::page.translate.form.lang.meta_title'));
+			$view->text('lang['.$language->id.'][meta_keywords]', __('admin::page.translate.form.lang.meta_keywords'));
+			$view->textarea('lang['.$language->id.'][meta_description]', __('admin::page.translate.form.lang.meta_description'));
+
+			/**
+			 * @todo stop laravel from adding id's to the form fields
+			 */
+			$view->text('lang['.$language->id.'][menu]', __('admin::page.translate.form.lang.menu'));
+			$view->text('lang['.$language->id.'][url]', __('admin::page.translate.form.lang.url'));
+
+			$view->actions(function($view)
+			{
+				$view->submit(__('admin::page.translate.buttons.edit'), 'primary');
+			});
+		}, 'PUT', prefix('admin').'page/'.$id.'/translate/'.$language->slug);
+	}
+
+	public function update($view, $data)
+	{
+		extract($data);
+
+		$view->form(function($view) use ($page, $language)
+		{
+			$view->page_header(function($view) use ($language)
+			{
+				$view->title(__('admin::page.update.title', array('language' => $language->name)));
 			});
 
 			$view->text('lang['.$page->lang->language_id.'][meta_title]',  __('admin::page.update.form.lang.meta_title'), $page->lang->meta_title);

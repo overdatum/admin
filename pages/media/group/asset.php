@@ -4,8 +4,10 @@ use Layla\API;
 
 class Admin_Media_Group_Asset_Page {
 
-	public function read_multiple($view, $assets, $module_id, $mediagroup_id)
+	public function read_multiple($view, $data)
 	{
+		extract($data);
+		
 		$templates = array(
 			'listitem' => View::make('admin::pages.media.group.asset.listitem')
 		);

@@ -82,7 +82,7 @@ class Admin_Layout_Page {
 			$view->title(__('admin::account.create.title'));
 		});
 
-		$view->form(Module::form('account.create'), 'POST', prefix('admin').'account/add');
+		$view->form(Artifact::form('account.create'), 'POST', prefix('admin').'account/add');
 	}
 
 	public function update($view, $id)
@@ -97,7 +97,7 @@ class Admin_Layout_Page {
 			$view->title(__('admin::account.update.title'));
 		});
 
-		$view->form(Module::form('account.update', $id), 'PUT', prefix('admin').'account/edit/'.$id);		
+		$view->form(Artifact::form('account.update', $id), 'PUT', prefix('admin').'account/edit/'.$id);		
 	}
 
 	public function delete($view, $id)
@@ -129,7 +129,7 @@ class Admin_Layout_Page {
 			$view->raw(__('admin::account.delete.message', array('name' => $account->name, 'email' => $account->email)));
 		});
 
-		$view->form(Module::form('account.delete', $id), 'DELETE', prefix('admin').'account/delete/'.$id);		
+		$view->form(Artifact::form('account.delete', $id), 'DELETE', prefix('admin').'account/delete/'.$id);		
 	}
 
 }

@@ -6,6 +6,8 @@ class Admin_Module_Page {
 
 	public function read_multiple($view, $modules)
 	{
+		extract($data);
+		
 		$templates = array(
 			'listitem' => View::make('admin::pages.media.listitem')
 		);
@@ -55,7 +57,7 @@ class Admin_Module_Page {
 			$view->title(__('admin::module.create.title'));
 		});
 
-		$view->form(Module::form('module.create'), 'POST', prefix('admin').'module/create');
+		$view->form(Artifact::form('module.create'), 'POST', prefix('admin').'module/create');
 	}
 
 	public function update($view, $id)
@@ -70,7 +72,7 @@ class Admin_Module_Page {
 			$view->title(__('admin::module.edit.title'));
 		});
 
-		$view->form(Module::form('module.update', $id), 'PUT', prefix('admin').'module/edit/'.$id);		
+		$view->form(Artifact::form('module.update', $id), 'PUT', prefix('admin').'module/edit/'.$id);		
 	}
 
 	public function delete($view, $id)
@@ -102,7 +104,7 @@ class Admin_Module_Page {
 			$view->raw(__('admin::module.delete.message', array('name' => $module->name, 'email' => $module->email)));
 		});
 
-		$view->form(Module::form('module.delete', $id), 'DELETE', prefix('admin').'module/delete/'.$id);		
+		$view->form(Artifact::form('module.delete', $id), 'DELETE', prefix('admin').'module/delete/'.$id);		
 	}
 
 }
