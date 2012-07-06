@@ -1,7 +1,22 @@
 {{#account}}
-<li>
+<li class="item">
 	<a href="{{base_url}}/manage/account/{{slug}}/edit">
 		<img style="display:inline-block; margin-left: -20px; margin-top: -20px; margin-right: 20px; vertical-align: top; height: 100px;" src="http://immediatenet.com/t/m?Size=1024x1024&amp;URL=http://www.getlayla.com">{{name}} - {{email}}
 	</a>
+
+	<span class="options nojs">
+		<div class="flyout">
+			<div class="arrow"></div>
+			<div class="title">
+				<a class="back" href="#"></a>
+				<span data-title="ACCOUNT OPTIONS">ACCOUNT OPTIONS</span>
+				<a class="close" href="#"></a>
+			</div>
+			<ul class="flyout-list">
+				<li><a href="{{base_url}}/manage/account/{{slug}}/edit"><i class="icon-pencil"></i> Edit</a></li>
+				<li><a href="{{base_url}}/manage/account/{{slug}}/delete"><i class="icon-trash"></i> Delete</a></li>
+			</ul>
+		</div>
+	</span>
 </li>
 {{/account}}

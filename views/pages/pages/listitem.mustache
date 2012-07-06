@@ -1,4 +1,4 @@
-<li>
+<li class="item">
 	<a href="{{base_url}}/manage/page/{{#page}}{{#lang}}{{slug}}{{/lang}}{{/page}}/edit">
 		{{#page}}
 		<img style="display:inline-block; margin-left: -20px; margin-top: -20px; margin-right: 20px; vertical-align: top; height: 100px;" src="http://immediatenet.com/t/m?Size=1024x1024&amp;URL=http://www.getlayla.com">
@@ -7,4 +7,50 @@
 			{{/lang}}
 		{{/page}}
 	</a>
+
+	<span class="options nojs">
+		<div class="flyout">
+			<div class="arrow"></div>
+			<div class="title">
+				<a class="back" href="#"></a>
+				<span data-title="PAGE OPTIONS">PAGE OPTIONS</span>
+				<a class="close" href="#"></a>
+			</div>
+			<ul class="flyout-list">
+				<li data-title="ADD TRANSLATION">
+					<a href="#"><i class="icon-plus"></i> Add translation</a>
+					<ul>
+						<li>
+							<a href="{{base_url}}/manage/page/{{#page}}{{id}}{{/page}}/translate/german">German</a>
+						</li>
+						<li>
+							<a href="{{base_url}}/manage/page/{{#page}}{{id}}{{/page}}/translate/italian">Italian</a>
+						</li>
+					</ul>
+				</li>
+				<li data-title="TRANSLATIONS">
+					<a href="#"><i class="icon-cog"></i> Translations</a>
+					<ul>
+						<li data-title="DUTCH">
+							<a href="#">Dutch</a>
+							<ul>
+								<li><a href="{{base_url}}/manage/page/{{#page}}{{#lang}}{{slug}}{{/lang}}{{/page}}/edit"><i class="icon-pencil"></i> Edit</a></li>
+								<li><a href="{{base_url}}/manage/page/{{#page}}{{#lang}}{{slug}}{{/lang}}{{/page}}/delete"><i class="icon-trash"></i> Delete</a></li>
+							</ul>
+						</li>
+						<li data-title="ENGLISH">
+							<a href="#">English</a>
+							<ul>
+								<li><a href="{{base_url}}/manage/page/{{#page}}{{#lang}}{{slug}}{{/lang}}{{/page}}/edit"><i class="icon-pencil"></i> Edit</a></li>
+								<li><a href="{{base_url}}/manage/page/{{#page}}{{#lang}}{{slug}}{{/lang}}{{/page}}/delete"><i class="icon-trash"></i> Delete</a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="{{base_url}}/manage/page/{{#page}}{{id}}{{/page}}/delete"><i class="icon-trash"></i> Delete</a>
+				</li>
+			</ul>
+		</div>
+	</span>
 </li>
