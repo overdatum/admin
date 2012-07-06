@@ -30,8 +30,25 @@ return array(
 		)
 	),
 	
+	'translate' => array(
+		'title' => 'Add :language translation',
+		'form' => array(
+			'lang' => array(
+				'meta_title' => 'Title',
+				'meta_description' => 'Meta description',
+				'meta_keywords' => 'Meta keywords',
+				'menu' => 'Menu',
+				'url' => 'URL',
+			),
+			'template_id' => 'Template',
+		),
+		'buttons' => array(
+			'edit' => 'Add translation'
+		)
+	),
+
 	'update' => array(
-		'title' => 'Edit page',
+		'title' => 'Edit :language translation',
 		'form' => array(
 			'lang' => array(
 				'meta_title' => 'Title',
